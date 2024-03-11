@@ -11,11 +11,13 @@ public partial class Restaurant
 
     public string ResPhone { get; set; } = null!;
 
-    public string ResSeat { get; set; } = null!;
-
     public string ResLocation { get; set; } = null!;
 
     public string ResAvg { get; set; } = null!;
 
     public int TypeId { get; set; }
+
+    public string? TableId { get; set; }
+
+    public int? ThemeId { get; set; }
 }

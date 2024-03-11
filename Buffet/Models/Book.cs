@@ -13,9 +13,9 @@ public partial class Book
 
     public int CourseId { get; set; }
 
-    public string ResSeat { get; set; } = null!;
-
     public DateTime BookDate { get; set; }
 
     public int BookStatus { get; set; }
+
+    public string? TableId { get; set; }
 }
