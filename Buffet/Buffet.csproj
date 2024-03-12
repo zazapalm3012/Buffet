@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Icon\" />
+    <Folder Include="wwwroot\public\" />
   </ItemGroup>
 
 </Project>
