@@ -1,16 +1,4 @@
-﻿.search {
-    padding: 10px;
-}
-    .search .search-input {
-        padding: 0 10px;
-        width: 550px;
-        caret-color: #536bf6;
-        font-size: 21px;
-        font-weight: 300;
-        color: black;
-        transition: width 0.4s linear;
-    }
-.testimonial-slider {
+﻿.testimonial-slider {
     background-color: #fff;
     padding: 3em 2em;
 }
