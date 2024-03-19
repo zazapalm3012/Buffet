@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class Table
 {
-    public int TableId { get; set; }
+    public string TableId { get; set; } = null!;
 
     public int Seat { get; set; }
 }

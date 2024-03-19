@@ -23,6 +23,8 @@ public partial class BuffetContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<ResTableTotal> ResTableTotals { get; set; }
+
     public virtual DbSet<Restaurant> Restaurants { get; set; }
 
     public virtual DbSet<RestaurantsType> RestaurantsTypes { get; set; }
@@ -30,11 +32,11 @@ public partial class BuffetContext : DbContext
     public virtual DbSet<Staff> Staffs { get; set; }
 
     public virtual DbSet<Table> Tables { get; set; }
-    /*
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=127.0.0.1;Initial Catalog=Buffet;User ID=dev;Password=1234;Encrypt=False");
-    */
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Admin>(entity =>
@@ -102,6 +104,21 @@ public partial class BuffetContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<ResTableTotal>(entity =>
+        {
+            entity.HasKey(e => e.TTotalId).HasName("PK_TableTotal");
+
+            entity.ToTable("ResTableTotal");
+
+            entity.Property(e => e.TTotalId)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("T_TotalId");
+            entity.Property(e => e.Ltotal).HasColumnName("LTotal");
+            entity.Property(e => e.Mtotal).HasColumnName("MTotal");
+            entity.Property(e => e.Stotal).HasColumnName("STotal");
+        });
+
         modelBuilder.Entity<Restaurant>(entity =>
         {
             entity.HasKey(e => e.ResId).HasName("PK_Restaurant");
@@ -161,7 +178,9 @@ public partial class BuffetContext : DbContext
         {
             entity.HasKey(e => e.TableId).HasName("PK_Table");
 
-            entity.Property(e => e.TableId).ValueGeneratedNever();
+            entity.Property(e => e.TableId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);
