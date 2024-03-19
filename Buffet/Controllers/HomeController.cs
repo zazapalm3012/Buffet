@@ -37,6 +37,8 @@ namespace Buffet.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var cusIdCount = (from id in _db.Customers select id).Count();
+                    obj.CusId = "C" + 00 + cusIdCount;
                     _db.Customers.Add(obj);
                     _db.SaveChanges();
                     return RedirectToAction("Index");
