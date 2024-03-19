@@ -82,7 +82,9 @@ public partial class BuffetContext : DbContext
         {
             entity.HasKey(e => e.CusId).HasName("PK_Customer");
 
-            entity.Property(e => e.CusId).ValueGeneratedNever();
+            entity.Property(e => e.CusId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.CusEmail)
                 .HasMaxLength(255)
                 .IsUnicode(false);

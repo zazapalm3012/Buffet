@@ -81,8 +81,7 @@ namespace Buffet.Controllers
 
                 HttpContext.Session.SetString("CusId", CusId);
                 HttpContext.Session.SetString("CusName", CusName);
-                var theRecord = _db.Customers.Find(CusId);
-                var theRecord = _db.Customers.Find(CusId);
+                //var theRecord = _db.Customers.Find(CusId);
                 //theRecord.LastLogin = DateOnly.FromDateTime(DateTime.Now);
 
                 //_db.Entry(theRecord).State = EntityState.Modified;
@@ -90,7 +89,7 @@ namespace Buffet.Controllers
 
             //_db.SaveChanges();
             return RedirectToAction("index");
-
+        }
         
 
         public IActionResult Logout()

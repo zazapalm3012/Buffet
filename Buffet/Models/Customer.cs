@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class Customer
 {
-    public int CusId { get; set; }
+    public string CusId { get; set; } = null!;
 
     public string CusName { get; set; } = null!;
 
