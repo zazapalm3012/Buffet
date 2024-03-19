@@ -27,8 +27,6 @@ namespace Buffet.Controllers
         {
             return View();
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(string userName, string userPass)
