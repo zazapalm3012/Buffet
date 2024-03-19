@@ -54,13 +54,17 @@ namespace Buffet.Controllers
         {
             return View();
         }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(string userName, string userPass)
         {
             var cus = from c in _db.Customers
-                      where c.CusName.Equals(userName) && c.CusPass.Equals(userPass)
+                      where c.CusPhone.Equals(userName) && c.CusPass.Equals(userPass)
                       select c;
+
             if (cus.ToList().Count() == 0)
             {
                 TempData["ErrorMessage"] = "I Show Gay";
@@ -77,8 +81,8 @@ namespace Buffet.Controllers
 
                 HttpContext.Session.SetString("CusId", CusId);
                 HttpContext.Session.SetString("CusName", CusName);
-
-                //var theRecord = _db.Customers.Find(CusId);
+                var theRecord = _db.Customers.Find(CusId);
+                var theRecord = _db.Customers.Find(CusId);
                 //theRecord.LastLogin = DateOnly.FromDateTime(DateTime.Now);
 
                 //_db.Entry(theRecord).State = EntityState.Modified;
@@ -86,7 +90,21 @@ namespace Buffet.Controllers
 
             //_db.SaveChanges();
             return RedirectToAction("index");
+
+        
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
