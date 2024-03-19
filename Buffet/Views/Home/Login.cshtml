@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
 @{
     ViewData["Title"] = "Login";
 }
@@ -7,12 +9,18 @@
 <div class="container justify-content-center align -items-center">
 <div class="text-center">
     <div class="display-4">KuShop</div>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
 
-    <form asp-controller="Home" asp-action="login" method="post">
+        @if (HttpContextAccessor.HttpContext.Session.GetString("CusId") == null)
+    {
+        <form asp-controller="Home" asp-action="Login" method="post">
         <div class=" row justify-content-center m-3">
             <div class="col-lg-4">
                 <div class="input-group">
-                    <div class="input-group-text"><i class="bi bi-person-circle"></i></div>
+                    <div class="input-group-text"><i class="bi bi-person-circle"></i></div> 
                     <input type="text" name="userName" class="form-control" required />
                 </div>
             </div>
@@ -27,13 +35,14 @@
         </div>
         <div class=" row justify-content-center m-3">
             <div class="col-lg-2">
-                <button type="button" class="btn btn-link">สมัครใช้งาน</button>
-            </div>
-            <div class="col-lg-2">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </div>
     </form>
-
+        }
+        else
+        {
+            <div class="display-3">Welcome Gay @HttpContextAccessor.HttpContext.Session.GetString("CusName")</div>
+        }
 </div>
 </div>
