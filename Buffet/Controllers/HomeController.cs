@@ -1,16 +1,17 @@
 using Buffet.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Buffet.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BuffetContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BuffetContext db)
         {
-            _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -26,6 +27,43 @@ namespace Buffet.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(string userName, string userPass)
+        {
+            var cus = from c in _db.Customers
+                      where c.CusName.Equals(userName) && c.CusPass.Equals(userPass)
+                      select c;
+            if (cus.ToList().Count() == 0)
+            {
+                TempData["ErrorMessage"] = "I Show Gay";
+                return RedirectToAction("Index");
+            }
+
+            string CusId;
+            string CusName;
+
+            foreach (var item in cus)
+            {
+                CusId = item.CusId.ToString();
+                CusName = item.CusName;
+
+                HttpContext.Session.SetString("CusId", CusId);
+                HttpContext.Session.SetString("CusName", CusName);
+
+                var theRecord = _db.Customers.Find(CusId);
+                //theRecord.LastLogin = DateOnly.FromDateTime(DateTime.Now);
+
+                //_db.Entry(theRecord).State = EntityState.Modified;
+            }
+
+            //_db.SaveChanges();
+            return RedirectToAction("index");
+        }
+
+
         public IActionResult SignUp()
         {
             return View();
