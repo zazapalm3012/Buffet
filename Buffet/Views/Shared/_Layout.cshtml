@@ -7,14 +7,15 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Buffet.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
-      
-        <nav class="navbar navbar-dark navbar-expand-sm navbar-toggleable-sm text-white " style="background-color: #FB054F;">
-            <div class="container-fluid">
+     
+        <nav class="fixed-top navbar navbar-dark navbar-expand-sm navbar-toggleable-sm text-white " style="background-color: #FB054F;">
+            <div class="container">
                 <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/Icon/icon.png" alt="" width="70" height="70">
+                    <img src="/Icon/icon.png" alt="" width="50" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -23,19 +24,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Help</a>
                         </li>
                         
                     </ul>
                     <ul class="navbar-nav ">
                         <li class="nav-item">
-                            <a class="nav-link text-white me-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <button type="button" class="btn btn-light me-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white me-3" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <button type="button" class="btn btn-primary me-2">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="SignUp">Sign-up</a>
+                            </button>
                         </li>
 
                     </ul>
@@ -44,16 +52,22 @@
         </nav>
 
     </header>
+<<<<<<< HEAD
     <div class=" ">
         <main role="main" class="pb-3">
+=======
+    <div class="">
+        <main role="main">
+>>>>>>> e2091d7a031adfafe35a49a7bb950007c2e74384
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2567 - Buffet - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container-fluid text-black" style="background:pink">
+            &copy; 2567 - Buffet - <a asp-area="" asp-controller="Home" asp-action="Privacy">ข้อกำหนดและเงื่อนไข</a>
         </div>
+
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
