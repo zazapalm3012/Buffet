@@ -1,5 +1,6 @@
-using Buffet.Models;
+﻿using Buffet.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -22,6 +23,32 @@ namespace Buffet.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(Customer obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.Customers.Add(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View(obj);
+            }
+            ViewBag.ErrorMessage = "การบันทึกผิดพลาด";
+            return RedirectToAction("Index");
         }
         public IActionResult Login()
         {
@@ -51,7 +78,7 @@ namespace Buffet.Controllers
                 HttpContext.Session.SetString("CusId", CusId);
                 HttpContext.Session.SetString("CusName", CusName);
 
-                var theRecord = _db.Customers.Find(CusId);
+                //var theRecord = _db.Customers.Find(CusId);
                 //theRecord.LastLogin = DateOnly.FromDateTime(DateTime.Now);
 
                 //_db.Entry(theRecord).State = EntityState.Modified;
@@ -59,12 +86,6 @@ namespace Buffet.Controllers
 
             //_db.SaveChanges();
             return RedirectToAction("index");
-        }
-
-
-        public IActionResult SignUp()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
