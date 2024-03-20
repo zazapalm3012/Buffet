@@ -100,13 +100,6 @@ namespace Buffet.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult SignUp()
-        {
-            return View();
-        }
-
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
