@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class Restaurant
 {
-    public int ResId { get; set; }
+    public string ResId { get; set; } = null!;
 
     public string ResName { get; set; } = null!;
 
@@ -15,9 +15,11 @@ public partial class Restaurant
 
     public string ResAvg { get; set; } = null!;
 
-    public int TypeId { get; set; }
+    public string TypeId { get; set; } = null!;
 
     public string? TableId { get; set; }
 
-    public int? ThemeId { get; set; }
+    public string? ThemeId { get; set; }
+
+    public string? ResImg { get; set; }
 }

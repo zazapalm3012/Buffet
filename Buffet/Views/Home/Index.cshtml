@@ -1,4 +1,11 @@
-﻿
+﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMesage;
+    </div>
+}
+
 <head>
     <meta charset="utf-8"></meta>
     <link rel="stylesheet" href="~/css/Home-Index.css"></link>
@@ -53,24 +60,16 @@
     
     <div class="d-flex justify-content-center h-100">
     <button type="button" class="btn btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"></path>
-            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
-        </svg>
+                    <i class="bi bi-geo-alt"></i>
         Map
     </button>
     <button type="button" class="btn btn-primary mx-5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-                <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
-                <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
-            </svg>
+                    <i class="bi bi-cash"></i>
+
         Cash
     </button>
     <button type="button" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-egg-fried" viewBox="0 0 16 16">
-                        <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        <path d="M13.997 5.17a5 5 0 0 0-8.101-4.09A5 5 0 0 0 1.28 9.342a5 5 0 0 0 8.336 5.109 3.5 3.5 0 0 0 5.201-4.065 3.001 3.001 0 0 0-.822-5.216zm-1-.034a1 1 0 0 0 .668.977 2.001 2.001 0 0 1 .547 3.478 1 1 0 0 0-.341 1.113 2.5 2.5 0 0 1-3.715 2.905 1 1 0 0 0-1.262.152 4 4 0 0 1-6.67-4.087 1 1 0 0 0-.2-1 4 4 0 0 1 3.693-6.61 1 1 0 0 0 .8-.2 4 4 0 0 1 6.48 3.273z" />
-                    </svg>
+                   
         </svg>
         Type @* กูหาไอค่อยไม่เจอ *@
     </button>
@@ -103,22 +102,33 @@
                                 </div>
 
                                 @*=========================== แสดงร้านในช่อง Recommend===========================*@
+
                                 <div class="col-md-8">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-1.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 1</h5>
-                                                    <i class="bi bi-star-fill text-warning pe-1"></i>
-                                                    <i class="bi bi-star-fill text-warning pe-1"></i>
-                                                    <i class="bi bi-star-fill text-warning pe-1"></i>
-                                                    <i class="bi bi-star-fill text-warning pe-1"></i>
-                                                    <i class="bi bi-star-fill text-warning pe-1"></i>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
+                                    
+                                        <div class="carousel-inner">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="carousel-item active">
+                                                <div class="card">
+                                                    <a asp-action="Store" asp-route-id="@item.ResId"> <div class="img-wrapper"><img src="/menu/menu-1.jpg" class="d-block w-100" alt="..."> </div></a>
+                                                    <div class="card-body">
+                                                        <a asp-action="Store" asp-route-id="@item.ResId"><h5 class="card-title">@item.ResName</h5></a>
+                                                        <br />
+                                                        <i class="bi bi-star-fill text-warning pe-1"></i>
+                                                        <i class="bi bi-star-fill text-warning pe-1"></i>
+                                                        <i class="bi bi-star-fill text-warning pe-1"></i>
+                                                        <i class="bi bi-star-fill text-warning pe-1"></i>
+                                                        <i class="bi bi-star-fill text-warning pe-1"></i>
+                                                        <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                           
+                                        
+                                    }
+                                    </div>
+
+                                    
 
 
                                       @*
