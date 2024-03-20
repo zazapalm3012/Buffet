@@ -1,5 +1,19 @@
 ﻿@model Buffet.Models.Book
-
+@using System.Globalization;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+    var CusId = HttpContextAccessor.HttpContext.Session.GetString("CusId");
+    var ResId = HttpContextAccessor.HttpContext.Session.GetString("ResId");
+}
+@{
+    CultureInfo us = new CultureInfo("en-US");
+    string theDate;
+    //ถ้าไม่ได้ระบุวันให้เป็นวันปัจจุบัน
+    if (ViewBag.theDate != null)
+        theDate = ViewBag.theDate;
+    else
+        theDate = DateTime.Now.Date.ToString("yyyy-MM-dd", us);
+}
 @{
     ViewData["Title"] = "Reserve";
 }
@@ -39,7 +53,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="BookStatus" class="control-label"></label>
-                <input asp-for="BookStatus" class="form-control" />
+                <input asp-for="BookStatus" class="form-control" value="จองสำเร็จ" />
                 <span asp-validation-for="BookStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
