@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
 
 namespace Buffet.Controllers
@@ -41,6 +42,7 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่พบ ID";
                 return RedirectToAction("Index");
             }
+            HttpContext.Session.SetString("ResId", id);
             var shop = from i in _db.Restaurants
                        where i.ResId.Equals(id)
                        select new Pdvm
@@ -56,37 +58,39 @@ namespace Buffet.Controllers
         }
         public IActionResult Reserve()
         {
-            DateOnly thedate = DateOnly.FromDateTime(DateTime.Now.Date);
+
+            if (HttpContext.Session.GetString("CusId") == null)
+            {
+                TempData["ErrorMessage"] = "กรุณาล็อกอิน";
+                return RedirectToAction("Login", "Home");
+            }
+            DateTime theDate = DateTime.Now.Date;
             var rep = from b in _db.Books
 
-                      join r in _db.Restaurants on b.ResId equals r.ResId into join_r
-                      from b_r in join_r
-                      
                       join co in _db.Courses on b.CourseId equals co.CourseId into join_co
                       from b_co in join_co
-                      
+
                       join t in _db.Tables on b.TableId equals t.TableId into join_t
                       from b_t in join_t
 
-                      select new Universal
+                      select new Book
                       {
-                          BookId = g.BookId,
-                          ResId = g.ResId,
-                          CourseId = g.CourseId,
-                          TableId = g.TableId,
-                          
+                          BookId = b.BookId,
+                          ResId = b.ResId,
+                          CourseId = b.CourseId,
+                          TableId = b.TableId,
+
                       };
-            return View(rep);
+            // return View(rep);
+            ViewData["Crs"] = new SelectList(_db.Courses, "CourseId", "CourseName");
+            return View();
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reserve(DateOnly thedate)
+        public IActionResult Reserve(Book obj)
         {
             var rep = from b in _db.Books
-
-                      join r in _db.Restaurants on b.ResId equals r.ResId into join_r
-                      from b_r in join_r
 
                       join co in _db.Courses on b.CourseId equals co.CourseId into join_co
                       from b_co in join_co
@@ -94,15 +98,33 @@ namespace Buffet.Controllers
                       join t in _db.Tables on b.TableId equals t.TableId into join_t
                       from b_t in join_t
 
-                      select new Universal
+                      select new Book
                       {
-                          BookId = g.BookId,
-                          ResId = g.ResId,
-                          CourseId = g.CourseId,
-                          TableId = g.TableId,
+                          BookId = b.BookId,
+                          ResId = b.ResId,
+                          CourseId = b.CourseId,
+                          TableId = b.TableId,
 
                       };
-            return View(rep);
+            obj.SelectDate = DateTime.Now;
+            var bookIdCount = (from id in _db.Books select id).Count();
+            obj.BookId = "B" + 00 + bookIdCount;
+            if (obj.BookSeat <= 4)
+            {
+                obj.TableId = "A1";
+            }
+            else if (obj.BookSeat <= 6)
+            {
+                obj.TableId = "A2";
+            }
+            else if (obj.BookSeat <= 10)
+            {
+                obj.TableId = "A3";
+            }
+
+            _db.Books.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
 
         }
 

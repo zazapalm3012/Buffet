@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class Book
 {
-    public int BookId { get; set; }
+    public string BookId { get; set; } = null!;
 
     public string CusId { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class Book
 
     public DateTime BookDate { get; set; }
 
-    public int BookStatus { get; set; }
+    public string BookStatus { get; set; } = null!;
 
     public string? TableId { get; set; }
 

@@ -11,5 +11,5 @@ public partial class Course
 
     public double CoursePrice { get; set; }
 
-    public int CourseType { get; set; }
+    public string CourseType { get; set; } = null!;
 }

@@ -109,11 +109,6 @@ namespace Buffet.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
-
-        public IActionResult SignUp()
-        {
-            return View();
-        }
         /*
         public IActionResult Store(string id)
         {

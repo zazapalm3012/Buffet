@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
 
 
-
-
 <img src="/Icon/copper header.png" class="d-block w-100" alt="...">
 @foreach(var item in Model)
 {
@@ -79,8 +77,6 @@
                             <input class="form-control form-control-lg" placeholder="1-30" />
                         </div>
                     </div>
-
-                    </form>
                     
                     
                     @*input เวลา*@
@@ -126,7 +122,7 @@
                             </label>
                         </div>
                         <div class="px-5 py-5">
-                            <a class="btn btn-primary btn-lg" asp-controller="Restaurant" asp-action="Total">ยืนยันการจอง</a>
+                                <a class="btn btn-primary btn-lg" asp-controller="Restaurant" asp-action="Reserve">ยืนยันการจอง</a>                            
                         </div>
                     </div>
 
