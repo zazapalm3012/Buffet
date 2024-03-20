@@ -2,6 +2,7 @@
 {
     public class Pdvm
     {
+        public string CourseId { get; set; } = null;
         public string ResId { get; set; } = null!;
 
         public string ResName { get; set; } = null!;
