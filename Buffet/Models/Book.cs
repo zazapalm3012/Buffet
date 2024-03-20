@@ -7,9 +7,9 @@ public partial class Book
 {
     public int BookId { get; set; }
 
-    public int CusId { get; set; }
+    public string CusId { get; set; } = null!;
 
-    public int ResId { get; set; }
+    public string ResId { get; set; } = null!;
 
     public int CourseId { get; set; }
 
