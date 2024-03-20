@@ -18,4 +18,8 @@ public partial class Book
     public int BookStatus { get; set; }
 
     public string? TableId { get; set; }
+
+    public int? BookSeat { get; set; }
+
+    public DateTime? SelectDate { get; set; }
 }
