@@ -53,5 +53,12 @@ namespace Buffet.Controllers
                        };
             return View(shop);
         }
+
+        public IActionResult Reserve()
+        {
+
+            return View();
+        }
+
     }
 }
