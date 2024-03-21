@@ -12,4 +12,6 @@ public partial class Course
     public double CoursePrice { get; set; }
 
     public string CourseType { get; set; } = null!;
+
+    public string? CourseDtl { get; set; }
 }

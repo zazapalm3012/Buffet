@@ -2,6 +2,7 @@
 using Buffet.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -45,6 +46,15 @@ namespace Buffet.Controllers
             HttpContext.Session.SetString("ResId", id);
             var shop = from i in _db.Restaurants
                        where i.ResId.Equals(id)
+
+                       join c in _db.Courses on i.CourseId equals c.CourseId into join_c
+                       from i_c in join_c
+
+                           //join c in _db.Courses on i.CourseId equals c.CourseId
+                           //        into join_i_c
+                           //from i_c in join_i_c.DefaultIfEmpty()
+                           //where i.CourseId.ToString() == id
+
                        select new Pdvm
                        {
                            ResId = i.ResId,
@@ -52,10 +62,18 @@ namespace Buffet.Controllers
                            ResImg = i.ResImg,
                            ResPhone = i.ResPhone,
                            ResAvg = i.ResAvg,
-                           ResLocation = i.ResLocation
+                           ResLocation = i.ResLocation,
+                           ResDtl = i.ResDtl,
+                           CourseId = i.CourseId,
+                           CourseName = i_c.CourseName,
+                           CoursePrice = i_c.CoursePrice,
+                           CourseDtl = i_c.CourseDtl,
+                           CourseType = i_c.CourseType
+
                        };
             return View(shop);
         }
+
         public IActionResult Reserve()
         {
 
@@ -124,7 +142,7 @@ namespace Buffet.Controllers
 
             _db.Books.Add(obj);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Total");
 
         }
 
