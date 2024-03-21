@@ -41,7 +41,7 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่พบ ID";
                 return RedirectToAction("Index");
             }
-            HttpContext.Session.SetString("ResId", id);
+            var sessionId = HttpContext.Session.GetString("ResId");
             var shop = from i in _db.Restaurants
                        where i.ResId.Equals(id)
 
@@ -128,7 +128,7 @@ namespace Buffet.Controllers
         public IActionResult Total()
         {
             var id = HttpContext.Session.GetString("ResId");
-            var Total = from t in _db.Books
+            var sum = from t in _db.Books
 
                         join c in _db.Courses on t.CourseId equals c.CourseId into join_c
                         from t_c in join_c
@@ -151,7 +151,8 @@ namespace Buffet.Controllers
                             CourseType = t_c.CourseType
 
                         };
-            return View(Total);
+            if (sum == null) return NotFound();
+            return View(sum);
         }
 
         [HttpPost]
