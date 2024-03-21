@@ -148,14 +148,16 @@ namespace Buffet.Controllers
 
         }
 
-        public IActionResult Total()
+        public IActionResult Total(Payment obj)
         {
-            
+
+
             return View();
         }
 
         public IActionResult Payment()
         {
+
             string serializedBook = TempData["ReservedBook"] as string;
             if (!string.IsNullOrEmpty(serializedBook))
             {
