@@ -12,4 +12,8 @@ public partial class Payment
     public string CardExpire { get; set; } = null!;
 
     public string CcvNum { get; set; } = null!;
+
+    public string PayType { get; set; } = null!;
+
+    public string BookId { get; set;} = null!;
 }

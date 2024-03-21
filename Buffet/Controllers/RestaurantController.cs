@@ -101,23 +101,6 @@ namespace Buffet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(Book obj)
         {
-
-        /*    var rep = from b in _db.Books
-
-                          join co in _db.Courses on b.CourseId equals co.CourseId into join_co
-                          from b_co in join_co
-
-                          join t in _db.Tables on b.TableId equals t.TableId into join_t
-                          from b_t in join_t
-
-                          select new Book
-                          {
-                              BookId = b.BookId,
-                              ResId = b.ResId,
-                              CourseId = b.CourseId,
-                              TableId = b.TableId,
-
-                          };*/
             
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
@@ -135,8 +118,7 @@ namespace Buffet.Controllers
                 obj.TableId = "A3";
             }
 
-            /*_db.Books.Add(obj);
-            _db.SaveChanges();*/
+            
             string serializedBook = JsonConvert.SerializeObject(obj);
             TempData["ReservedBook"] = serializedBook;
 
@@ -145,28 +127,43 @@ namespace Buffet.Controllers
         }
         public IActionResult Total()
         {
-            var obj = TempData["BookData"] as Book;
-            var book = new Book
-            {
-                BookId = obj.BookId,
-                ResId = obj.ResId,
-                CourseId = obj.CourseId,
-                TableId = obj.TableId,
-                // ตัวแปรอื่น ๆ ที่ต้องการบันทึกลงในฐานข้อมูล
-            };
-            _db.Bo  oks.Add(obj);
-            _db.SaveChanges();
-            return View();
+            var id = HttpContext.Session.GetString("ResId");
+            var Total = from t in _db.Books
+
+                        join c in _db.Courses on t.CourseId equals c.CourseId into join_c
+                        from t_c in join_c
+
+                        join r in _db.Restaurants on t.ResId equals r.ResId into join_r
+                        from t_r in join_r
+                        where t.ResId.Equals(id)
+
+                        join p in _db.Payments on t.BookId equals p.BookId into join_p
+                        from t_p in join_p
+
+                        select new Pmvm
+                        {
+                            ResId = t.ResId,
+                            ResName = t_r.ResName,
+                            ResDtl = t_r.ResDtl,
+                            CourseName = t_c.CourseName,
+                            CoursePrice = t_c.CoursePrice,
+                            CourseDtl = t_c.CourseDtl,
+                            CourseType = t_c.CourseType
+
+                        };
+            return View(Total);
         }
 
-        public IActionResult Total()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Total(Payment obj)
         {
             
-            return View();
-        }
+            var PayIdCount = (from pay in _db.Payments select pay).Count();
+            obj.PayId = "P" + 00 + PayIdCount;
+            _db.Payments.Add(obj);
+            _db.SaveChanges();
 
-        public IActionResult Payment()
-        {
             string serializedBook = TempData["ReservedBook"] as string;
             if (!string.IsNullOrEmpty(serializedBook))
             {
@@ -178,6 +175,13 @@ namespace Buffet.Controllers
                 }
 
             }
+            return View();
+        }
+
+
+        public IActionResult Payment()
+        {
+            
 
             return View();
         }
