@@ -13,5 +13,5 @@ public partial class Course
 
     public string CourseType { get; set; } = null!;
 
-    public string? CourseDtl { get; set; }
+    public string CourseDtl { get; set; } = null!;
 }

@@ -17,13 +17,15 @@ public partial class Restaurant
 
     public string TypeId { get; set; } = null!;
 
+    public string TableId { get; set; } = null!;
+
     public string ThemeId { get; set; } = null!;
 
-    public string TTotalId { get; set; } = null!;
+    public string ResImg { get; set; } = null!;
 
-    public string? ResImg { get; set; }
-
-    public string? ResDtl { get; set; }
+    public string ResDtl { get; set; } = null!;
 
     public int CourseId { get; set; }
+
+    public string TTotalId { get; set; } = null!;
 }
