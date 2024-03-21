@@ -25,10 +25,7 @@ namespace Buffet.Controllers
             return View();
         }
 
-        public IActionResult Total()
-        {
-            return View();
-        }
+        
 
         public IActionResult Store(string id)
         {
@@ -103,22 +100,23 @@ namespace Buffet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(Book obj)
         {
-        /*    var rep = from b in _db.Books
+            /*    var rep = from b in _db.Books
 
-                      join co in _db.Courses on b.CourseId equals co.CourseId into join_co
-                      from b_co in join_co
+                          join co in _db.Courses on b.CourseId equals co.CourseId into join_co
+                          from b_co in join_co
 
-                      join t in _db.Tables on b.TableId equals t.TableId into join_t
-                      from b_t in join_t
+                          join t in _db.Tables on b.TableId equals t.TableId into join_t
+                          from b_t in join_t
 
-                      select new Book
-                      {
-                          BookId = b.BookId,
-                          ResId = b.ResId,
-                          CourseId = b.CourseId,
-                          TableId = b.TableId,
+                          select new Book
+                          {
+                              BookId = b.BookId,
+                              ResId = b.ResId,
+                              CourseId = b.CourseId,
+                              TableId = b.TableId,
 
-                      };*/
+                          };*/
+            
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
             obj.BookId = "B" + 00 + bookIdCount;
@@ -135,18 +133,29 @@ namespace Buffet.Controllers
                 obj.TableId = "A3";
             }
 
-            TempData["data"] = obj;
+            TempData["BookData"] = obj;
             return RedirectToAction("Total");
 
+        }
+        public IActionResult Total()
+        {
+            var obj = TempData["BookData"] as Book;
+            var book = new Book
+            {
+                BookId = obj.BookId,
+                ResId = obj.ResId,
+                CourseId = obj.CourseId,
+                TableId = obj.TableId,
+                // ตัวแปรอื่น ๆ ที่ต้องการบันทึกลงในฐานข้อมูล
+            };
+            _db.Bo  oks.Add(obj);
+            _db.SaveChanges();
+            return View();
         }
 
 
         public IActionResult Payment()
         {
-            var obj = TempData["data"];
-            _db.Books.Add((Book)obj);
-            _db.SaveChanges();
-
             return View();
         }
 
