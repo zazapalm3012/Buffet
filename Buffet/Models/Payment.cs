@@ -15,5 +15,5 @@ public partial class Payment
 
     public string PayType { get; set; } = null!;
 
-    public string BookId { get; set;} = null!;
+    public string BookId { get; set; } = null!;
 }

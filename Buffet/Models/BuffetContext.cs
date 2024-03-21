@@ -126,8 +126,14 @@ public partial class BuffetContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.PayId);
 
+            entity.Property(e => e.PayId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.BookId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.CardExpire)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -137,7 +143,7 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.CcvNum)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.PayId)
+            entity.Property(e => e.PayType)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });

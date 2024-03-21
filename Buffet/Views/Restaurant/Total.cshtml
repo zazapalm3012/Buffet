@@ -12,7 +12,8 @@
 </div>
 <div class="container" style="background-color : pink">
     <div class="container mt-5">
-        <div class="row">@foreach (var item in Model)
+        <div class="row">
+            @foreach (var item in Model)
             {
                                 <div class="col-md-3">
                                     <h3 class="font-weight-bold my-5">@item.CourseName</h3>
@@ -80,7 +81,7 @@
                             </div>
                             <div class="col-md-9 pe-5">
 
-                                <input type="text" class="form-control form-control-lg" maxlength="16" />   @*Card number*@
+                                <input type="text" name = "Cardnum" class="form-control form-control-lg" maxlength="16" />   @*Card number*@
                             </div>
                         </div>
                         <div class="row align-items-center py-3">
@@ -89,7 +90,7 @@
                             </div>
                             <div class="col-md-9 pe-5">
                                 <!-- <input type="month" id="start" name="start" min="2010-03" value="2024-3" /> -->
-                                <input type="text" class="form-control form-control-lg" maxlength="5" /> @*Expiration*@
+                                <input type="text" name="Exp" class="form-control form-control-lg" maxlength="5" /> @*Expiration*@
 
                             </div>
                         </div>
@@ -99,7 +100,7 @@
 
                             </div>
                             <div class="col-md-9 pe-5">
-                                <input type="text" class="form-control form-control-lg" maxlength="3" />         @*CCV*@
+                                <input type="text" name="ccv" class="form-control form-control-lg" maxlength="3" />         @*CCV*@
                             </div>
                         </div>
                     </div>
