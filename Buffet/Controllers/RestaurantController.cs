@@ -50,11 +50,6 @@ namespace Buffet.Controllers
                        join c in _db.Courses on i.CourseId equals c.CourseId into join_c
                        from i_c in join_c
 
-                           //join c in _db.Courses on i.CourseId equals c.CourseId
-                           //        into join_i_c
-                           //from i_c in join_i_c.DefaultIfEmpty()
-                           //where i.CourseId.ToString() == id
-
                        select new Pdvm
                        {
                            ResId = i.ResId,
