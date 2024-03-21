@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Net;
+using System.Reflection.Metadata;
 
 namespace Buffet.Controllers
 {
@@ -127,30 +129,41 @@ namespace Buffet.Controllers
         }
         public IActionResult Total()
         {
-            var id = HttpContext.Session.GetString("ResId");
-            var Total = from t in _db.Books
+            var ids = HttpContext.Session.GetString("ResId");
 
-                        join c in _db.Courses on t.CourseId equals c.CourseId into join_c
-                        from t_c in join_c
+             var Total = from t in _db.Books
+                         where t.ResId.Equals(ids)
 
-                        join r in _db.Restaurants on t.ResId equals r.ResId into join_r
-                        from t_r in join_r
-                        where t.ResId.Equals(id)
+                         join c in _db.Courses on t.CourseId equals c.CourseId into join_c
+                          from t_c in join_c
 
-                        join p in _db.Payments on t.BookId equals p.BookId into join_p
-                        from t_p in join_p
 
-                        select new Pmvm
-                        {
-                            ResId = t.ResId,
-                            ResName = t_r.ResName,
-                            ResDtl = t_r.ResDtl,
-                            CourseName = t_c.CourseName,
-                            CoursePrice = t_c.CoursePrice,
-                            CourseDtl = t_c.CourseDtl,
-                            CourseType = t_c.CourseType
+                         join r in _db.Restaurants on t.ResId equals r.ResId into join_r
+                         from t_r in join_r
 
-                        };
+
+                         join p in _db.Payments on t.BookId equals p.BookId into join_p
+                         from t_p in join_p
+
+                    select new Pmvm
+                         {
+                             ResId = t.ResId,
+                             ResName = t_r.ResName,
+                             ResDtl = t_r.ResDtl,
+                           /* CourseName = t_c.CourseName,
+                             CoursePrice = t_c.CoursePrice,
+                             CourseDtl = t_c.CourseDtl,
+                             CourseType = t_c.CourseType*/
+
+                         };
+            
+
+            if (Total == null)
+            {
+                return NotFound();
+            }
+
+
             return View(Total);
         }
 
@@ -179,10 +192,11 @@ namespace Buffet.Controllers
         }
 
 
-        public IActionResult Payment()
+        public IActionResult Payment(string method,string Cardnum, string Exp, string ccv) 
         {
-            
-
+            Payment pays = new Payment() { PayId = "1", CardId  = Cardnum , CardExpire = Exp, CcvNum  =ccv, PayType  = method, BookId = "2"};
+            _db.Payments.Add(pays);
+            _db.SaveChanges();
             return View();
         }
 
