@@ -34,15 +34,13 @@ public partial class BuffetContext : DbContext
     public virtual DbSet<Staff> Staffs { get; set; }
 
     public virtual DbSet<Table> Tables { get; set; }
-
+    /*
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=127.0.0.1;Initial Catalog=Buffet;User ID=dev;Password=1234;Encrypt=False");
-
+    */
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Thai_CI_AS");
-
         modelBuilder.Entity<Admin>(entity =>
         {
             entity.HasKey(e => e.AdminId).HasName("PK_Admin");
@@ -139,21 +137,24 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.CcvNum)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.PayId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<ResTableTotal>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("ResTableTotal");
+            entity.HasKey(e => e.TTotalId).HasName("PK_TableTotal");
 
-            entity.Property(e => e.Ltotal).HasColumnName("LTotal");
-            entity.Property(e => e.Mtotal).HasColumnName("MTotal");
-            entity.Property(e => e.Stotal).HasColumnName("STotal");
+            entity.ToTable("ResTableTotal");
+
             entity.Property(e => e.TTotalId)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("T_TotalId");
+            entity.Property(e => e.Ltotal).HasColumnName("LTotal");
+            entity.Property(e => e.Mtotal).HasColumnName("MTotal");
+            entity.Property(e => e.Stotal).HasColumnName("STotal");
         });
 
         modelBuilder.Entity<Restaurant>(entity =>
@@ -185,6 +186,9 @@ public partial class BuffetContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("T_TotalId");
+            entity.Property(e => e.TableId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.ThemeId)
                 .HasMaxLength(255)
                 .IsUnicode(false);

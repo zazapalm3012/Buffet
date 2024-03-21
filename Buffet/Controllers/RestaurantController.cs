@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 
@@ -25,7 +26,7 @@ namespace Buffet.Controllers
             return View();
         }
 
-        
+   
 
         public IActionResult Store(string id)
         {
@@ -100,7 +101,8 @@ namespace Buffet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(Book obj)
         {
-            /*    var rep = from b in _db.Books
+
+        /*    var rep = from b in _db.Books
 
                           join co in _db.Courses on b.CourseId equals co.CourseId into join_co
                           from b_co in join_co
@@ -133,7 +135,11 @@ namespace Buffet.Controllers
                 obj.TableId = "A3";
             }
 
-            TempData["BookData"] = obj;
+            /*_db.Books.Add(obj);
+            _db.SaveChanges();*/
+            string serializedBook = JsonConvert.SerializeObject(obj);
+            TempData["ReservedBook"] = serializedBook;
+
             return RedirectToAction("Total");
 
         }
@@ -153,9 +159,26 @@ namespace Buffet.Controllers
             return View();
         }
 
+        public IActionResult Total()
+        {
+            
+            return View();
+        }
 
         public IActionResult Payment()
         {
+            string serializedBook = TempData["ReservedBook"] as string;
+            if (!string.IsNullOrEmpty(serializedBook))
+            {
+                Book reservedBook = JsonConvert.DeserializeObject<Book>(serializedBook);
+                if (reservedBook != null)
+                {
+                    _db.Books.Add(reservedBook);
+                    _db.SaveChanges();
+                }
+
+            }
+
             return View();
         }
 

@@ -5,9 +5,11 @@ namespace Buffet.Models;
 
 public partial class Payment
 {
-    public string? CardId { get; set; }
+    public string PayId { get; set; } = null!;
 
-    public string? CardExpire { get; set; }
+    public string CardId { get; set; } = null!;
 
-    public string? CcvNum { get; set; }
+    public string CardExpire { get; set; } = null!;
+
+    public string CcvNum { get; set; } = null!;
 }
