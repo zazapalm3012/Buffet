@@ -103,7 +103,7 @@ namespace Buffet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(Book obj)
         {
-            var rep = from b in _db.Books
+        /*    var rep = from b in _db.Books
 
                       join co in _db.Courses on b.CourseId equals co.CourseId into join_co
                       from b_co in join_co
@@ -118,7 +118,7 @@ namespace Buffet.Controllers
                           CourseId = b.CourseId,
                           TableId = b.TableId,
 
-                      };
+                      };*/
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
             obj.BookId = "B" + 00 + bookIdCount;
@@ -135,10 +135,19 @@ namespace Buffet.Controllers
                 obj.TableId = "A3";
             }
 
-            _db.Books.Add(obj);
-            _db.SaveChanges();
+            TempData["data"] = obj;
             return RedirectToAction("Total");
 
+        }
+
+
+        public IActionResult Payment()
+        {
+            var obj = TempData["data"];
+            _db.Books.Add((Book)obj);
+            _db.SaveChanges();
+
+            return View();
         }
 
     }
