@@ -99,6 +99,7 @@ namespace Buffet.Controllers
             return View();
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Reserve(Book obj)
@@ -172,11 +173,24 @@ namespace Buffet.Controllers
         public IActionResult Total(Payment obj)
         {
             
-            var PayIdCount = (from pay in _db.Payments select pay).Count();
-            obj.PayId = "P" + 00 + PayIdCount;
-            _db.Payments.Add(obj);
-            _db.SaveChanges();
 
+            /*string serializedBook = TempData["ReservedBook"] as string;
+            if (!string.IsNullOrEmpty(serializedBook))
+            {
+                Book reservedBook = JsonConvert.DeserializeObject<Book>(serializedBook);
+                if (reservedBook != null)
+                {
+                    _db.Books.Add(reservedBook);
+                    _db.SaveChanges();
+                }
+
+            }*/
+            return View();
+        }
+
+
+        public IActionResult Payment(string method, string Cardnum, string Exp, string ccv) 
+        {
             string serializedBook = TempData["ReservedBook"] as string;
             if (!string.IsNullOrEmpty(serializedBook))
             {
@@ -188,16 +202,14 @@ namespace Buffet.Controllers
                 }
 
             }
-            return View();
-        }
-
-
-        public IActionResult Payment(string method,string Cardnum, string Exp, string ccv) 
-        {
-            Payment pays = new Payment() { PayId = "1", CardId  = Cardnum , CardExpire = Exp, CcvNum  =ccv, PayType  = method, BookId = "2"};
+            var PayIdCount = (from pay in _db.Payments select pay).Count();
+            var PayId = "P" + 00 + PayIdCount;
+            var BookIdCount = (from bookid in _db.Books select bookid).Count();
+            var BookId = "B" + 00 + PayIdCount;
+            Payment pays = new Payment() { PayId = PayId, CardId  = Cardnum , CardExpire = Exp, CcvNum  =ccv, PayType  = method, BookId = BookId };
             _db.Payments.Add(pays);
             _db.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
         }
 
     }
