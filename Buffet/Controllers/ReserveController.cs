@@ -13,11 +13,11 @@ using System.Reflection.Metadata;
 
 namespace Buffet.Controllers
 {
-    public class RestaurantController : Controller
+    public class ReserveController : Controller
     {
         private readonly BuffetContext _db;
 
-        public RestaurantController(BuffetContext db)
+        public ReserveController(BuffetContext db)
         {
             _db = db;
         }
@@ -212,5 +212,10 @@ namespace Buffet.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
     }
 }

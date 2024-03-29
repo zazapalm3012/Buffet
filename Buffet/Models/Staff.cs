@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class Staff
 {
-    public int StaffId { get; set; }
+    public string StaffId { get; set; } = null!;
 
     public string StaffName { get; set; } = null!;
 
@@ -16,4 +16,6 @@ public partial class Staff
     public string StaffPhone { get; set; } = null!;
 
     public string StaffImg { get; set; } = null!;
+
+    public string DutyId { get; set; } = null!;
 }

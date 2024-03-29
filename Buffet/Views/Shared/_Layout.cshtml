@@ -8,7 +8,6 @@
     var CartQty = HttpContextAccessor.HttpContext.Session.GetString("CartQty");
     var StfId = HttpContextAccessor.HttpContext.Session.GetString("StfId");
     
-
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -33,19 +32,44 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
-                    <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex ">
+                    @if (StfId == null)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Product</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                    
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                รายงาน
+                            </a>
+                            <ul class="dropdown-menu bg-light">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Report" asp-action="SaleDaily">
+                                        สินค้าขายรายวัน
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Report" asp-action="SaleMonthly">
+                                        สินค้าขายรายเดือน
+                                    </a>
+                                </li>
+                                
+
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Help</a>
-                        </li>
+                    }
                         
                     </ul>
+
+                </div>
+            
+
                     <ul class="navbar-nav ">
                         @if (CusId != null)
                         {
@@ -57,16 +81,23 @@
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-light me-2">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-primary me-2">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Register">Sign-up</a>
-                                </button>
-                            </li>
+                            if( StfId == null)
+                            {
+                                <li class="nav-item">
+                                    <button type="button" class="btn btn-light me-2">
+                                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
+                                    </button>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <button type="button" class="btn btn-primary me-2">
+                                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Register">Sign-up</a>
+                                    </button>
+                                </li>
+                            }
+                            
                         }
                         
                        
