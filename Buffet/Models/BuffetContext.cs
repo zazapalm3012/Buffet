@@ -209,6 +209,9 @@ public partial class BuffetContext : DbContext
 
             entity.ToTable("Restaurants_Type");
 
+            entity.Property(e => e.TypeId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.TypeName)
                 .HasMaxLength(255)
                 .IsUnicode(false);

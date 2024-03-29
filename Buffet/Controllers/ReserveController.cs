@@ -213,9 +213,6 @@ namespace Buffet.Controllers
         }
 
 
-        public IActionResult Edit()
-        {
-            return View();
-        }
+
     }
 }

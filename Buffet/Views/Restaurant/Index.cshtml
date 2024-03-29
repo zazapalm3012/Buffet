@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
+@{
+    var stext = ViewBag.theText;
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMesage;
+    </div>
+}
+
+<h1>Product KuShop KUSRC</h1>
+<div class="container pt-5 mt-5">
+    <form asp-controller="Restaurant" asp-action="Index">
+        <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-9">
+                <a class="btn btn-primary" asp-action="Create">
+                    <i class="bg-info bi-plus-lg"></i>เพิ่มร้านอาหาร
+                </a>
+                <a class="btn btn-primary" asp-action="CreateCourse">
+                    <i class="bg-info bi-plus-lg"></i>เพิ่มCourse
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-text">ค้นหา</span>
+                    <input type="text" name="stext" class="form-control" value="@stext" />
+                    <button type="submit" class="btn btn-secondary">OK</button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>รหัสร้านอาหาร</th>
+            <th>ชื่อร้านอาหาร</th>
+            <th>รายละเอียด</th>
+
+        </tr>
+
+        @{
+            //กำหนดค่าเพื่อให้นับค่าแสดงลำดับ
+            var i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            //Razor page ใข้เครื่องหมาย @ หน้าตัวแปรที่ต้องการให้แสดงผล
+            <tr>
+                <td>@i</td>
+                <td>@item.ResId</td>
+                <td>@item.ResName</td>
+                <td>@item.ResDtl</td>
+
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ResId">Edit</a>
+                </td>
+                <td class="text-center">
+                    <a asp-action="Delete" asp-route-id="@item.ResId">Delete</a>
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>

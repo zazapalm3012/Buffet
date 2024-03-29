@@ -5,7 +5,7 @@ namespace Buffet.Models;
 
 public partial class RestaurantsType
 {
-    public int TypeId { get; set; }
+    public string TypeId { get; set; } = null!;
 
     public string TypeName { get; set; } = null!;
 }

@@ -19,10 +19,18 @@ namespace Buffet.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index","Home");
+        }
+
+
         public IActionResult Login()
         {
             return View();
         }
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
