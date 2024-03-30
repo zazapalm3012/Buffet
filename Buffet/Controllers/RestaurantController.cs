@@ -29,8 +29,8 @@ namespace Buffet.Controllers
                            ResPhone = i.ResPhone,
                            ResAvg = i.ResAvg,
                            ResLocation = i.ResLocation,
-                           ResDtl = i.ResDtl,
-                           CourseId = i.CourseId,
+                           ResDtl = i.ResDtl
+
                        };
 
             //ถ้าค่าที่อ่านได้เป็น Null ก็ Return เรียก Function NorFound()
@@ -107,7 +107,6 @@ namespace Buffet.Controllers
             ViewBag.ErrorMessage = "การบันทึกผิดพลาด";
             return View(obj);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

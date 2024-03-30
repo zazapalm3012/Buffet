@@ -1,68 +1,68 @@
 ﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
 
-
 <img src="/Icon/copper header.png" class="d-block w-100" alt="...">
-@foreach (var item in Model)
+@foreach(var item in Model)
 {
-					<h1 class="text-center" pt-5 my-5>@item.ResName</h1>
-					<h4 class="text-center" pt-5 my-5>@item.ResDtl</h4>
-					<div class="text-center" pt-5 my-5>
-						<button type="button" class="btn btn-primary">
-							<i class="bi bi-geo-alt"></i>
-							Map
-						</button>
-						<i class="bi bi-telephone">@item.ResPhone</i>
 
-						<button type="button" class="btn btn-primary mx-1">
-							<i class="bi bi-cash"></i>
-							100-200
-						</button>
-					</div>
+		<h1 class="text-center" pt-5 my-5>@item.ResName</h1>
+		<h4 class="text-center" pt-5 my-5>@item.ResDtl</h4>
+		<div class="text-center" pt-5 my-5>
+			<button type="button" class="btn btn-primary">
+				<i class="bi bi-geo-alt"></i>
+				Map
+			</button>
+			<i class="bi bi-telephone">@item.ResPhone</i>
 
+			<button type="button" class="btn btn-primary mx-1">
+				<i class="bi bi-cash"></i>
+				100-200
+			</button>
+		</div>
+		break;
 }
 
 
 <div class="container mx-5 my-5">
 	<h3>แพ็คเกจ</h3>
 </div>
-<div class="container" style="background-color : pink">
-		<div class="container mt-5">
-			<div class="row">
-			@foreach (var item in Model)
-			{
-							<div class="col-md-3">
-								<h3 class="font-weight-bold my-5">@item.CourseName</h3>
-
-							</div>
-							<div class="col-md-5">
-								<p class="text-center">@item.CourseDtl</p>
-							</div>
-							<div class="col text-right col-lg-3">
-									<p class="font-weight-bold">@item.CoursePrice NET price per person</p>
-							</div>
-							<div class="px-5 py-5">
-					<a class="btn btn-primary btn-lg" asp-controller="Reserve" asp-action="Reserve">จอง</a>
-							</div>
-								<div class="col ">
-							<div id="accordion-basic" class="accordion">
-								<div class="accordion-item">
-									<h5 class=" accordion-header">
-										<botton class="accordion-button"
-												data-bs-toggle="collapse"
-												data-bs-target="#ct1">
-											เพื่มเติม
-										</botton>
-									</h5>
-									<div id="ct1">
-										<div class="accordion-body">
-											<img src="/Icon/copper set1.png" class="d-block w-100" alt="...">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-			}
-			</div>
+<div class="container" style="background-color: pink">
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <h3 class="font-weight-bold my-5">@item.CourseName</h3>
+                </div>
+                <div class="col-md-5">
+                    <p class="text-center">@item.CourseDtl</p>
+                </div>
+                <div class="col text-right col-lg-3">
+                    <p class="font-weight-bold">@item.CoursePrice NET price per person</p>
+                </div>
+                <div class="px-5 py-5">
+                    <a class="btn btn-primary btn-lg" asp-controller="Reserve" asp-action="Reserve">จอง</a>
+                </div>
+                <div class="col">
+                    <div id="accordion-@item.CourseId" class="accordion">
+                        <div class="accordion-item">
+                            <h5 class="accordion-header">
+                                <button class="accordion-button" data-bs-toggle="collapse"
+                                        data-bs-target="#ct-@item.CourseId">
+                                    เพื่มเติม
+                                </button>
+                            </h5>
+                            <div id="ct-@item.CourseId" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <img src="/Icon/copper set1.png" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 
 		@* เพิ่มเติม *@

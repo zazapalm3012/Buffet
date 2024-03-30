@@ -44,28 +44,28 @@ namespace Buffet.Controllers
                 return RedirectToAction("Index");
             }
             HttpContext.Session.SetString("ResId", id);
-            var shop = from i in _db.Restaurants
-                       where i.ResId.Equals(id)
 
-                       join c in _db.Courses on i.CourseId equals c.CourseId into join_c
+            var shop = from i in _db.Courses where i.ResId.Equals(id)
+
+                       join c in _db.Restaurants on i.ResId equals c.ResId into join_c
                        from i_c in join_c
 
                        select new Pdvm
                        {
-                           ResId = i.ResId,
-                           ResName = i.ResName,
-                           ResPhone = i.ResPhone,
-                           ResAvg = i.ResAvg,
-                           ResLocation = i.ResLocation,
-                           ResDtl = i.ResDtl,
+                           ResId = i_c.ResId,
+                           ResName = i_c.ResName,
+                           ResPhone = i_c.ResPhone,
+                           ResAvg = i_c.ResAvg,
+                           ResLocation = i_c.ResLocation,
+                           ResDtl = i_c.ResDtl,
                            CourseId = i.CourseId,
-                           CourseName = i_c.CourseName,
-                           CoursePrice = i_c.CoursePrice,
-                           CourseDtl = i_c.CourseDtl,
-                           CourseType = i_c.CourseType
-
-                       };
-            return View(shop);
+                           CourseName = i.CourseName,
+                           CoursePrice = i.CoursePrice,
+                           CourseDtl = i.CourseDtl,
+                           CourseType = i.CourseType
+                        };
+               
+                return View(shop);
         }
 
         public IActionResult Reserve()
@@ -91,7 +91,6 @@ namespace Buffet.Controllers
                           ResId = b.ResId,
                           CourseId = b.CourseId,
                           TableId = b.TableId,
-
                       };
             // return View(rep);
             ViewData["Crs"] = new SelectList(_db.Courses, "CourseId", "CourseName");
@@ -211,7 +210,10 @@ namespace Buffet.Controllers
             return RedirectToAction("Index");
         }
 
-
+        public IActionResult Nothing()
+        {
+            return View();
+        }
 
     }
 }

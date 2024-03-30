@@ -7,9 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 
-    
-
-
 namespace Buffet.Controllers
 {
     public class HomeController : Controller
@@ -24,10 +21,15 @@ namespace Buffet.Controllers
         public IActionResult Index()
         {
             var shop = from i in _db.Restaurants
-            select new Pdvm
+
+                       select new Pdvm
                        {
                            ResId = i.ResId,
                            ResName = i.ResName,
+                           ResPhone = i.ResPhone,
+                           ResAvg = i.ResAvg,
+                           ResLocation = i.ResLocation,
+                           ResDtl = i.ResDtl
 
                        };
             if (shop == null) return NotFound();

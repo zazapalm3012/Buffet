@@ -112,6 +112,9 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.CourseType)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.ResId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Customer>(entity =>

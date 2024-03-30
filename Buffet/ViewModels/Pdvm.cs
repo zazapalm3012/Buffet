@@ -1,8 +1,9 @@
-﻿namespace Buffet.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Buffet.ViewModels
 {
     public class Pdvm
     {
-        public int CourseId { get; set; }
         public string ResId { get; set; } = null!;
 
         public string ResName { get; set; } = null!;
@@ -15,13 +16,14 @@
 
         public string TypeId { get; set; } = null!;
 
-        public string? TableId { get; set; }
+        public string ResDtl { get; set; } = null!;
 
-        public string? ThemeId { get; set; }
+        public string TableId { get; set; } = null!;
 
-        public string? ResImg { get; set; }
+        public string TablesetIds { get; set; } = null!;
 
-        public string? ResDtl { get; set; }
+        public int CourseId { get; set; }
+
 
         public string CourseName { get; set; } = null!;
 
@@ -29,8 +31,7 @@
 
         public string CourseType { get; set; } = null!;
 
-        public string? CourseDtl { get; set; }
-        public string ResTotalId { get; set; } = null!;
+        public string CourseDtl { get; set; } = null!;
 
 
     }

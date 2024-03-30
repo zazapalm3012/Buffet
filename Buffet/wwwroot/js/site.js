@@ -1,40 +1,102 @@
 ﻿$(document).ready(function () {
     var multipleCardCarousel = document.querySelector(
-    "#carouselExampleControls"
-  );
-  if (window.matchMedia("(min-width: 576px)").matches) {
-    var carousel = new bootstrap.Carousel(multipleCardCarousel, {
-      interval: false,
-      wrap: false
-    });
-    var carouselWidth = $(".carousel-inner")[0].scrollWidth;
-    var cardWidth = $(".carousel-item").width();
-    var scrollPosition = 0;
-    $("#carouselExampleControls .carousel-control-next").on("click", function () {
-      if (scrollPosition < carouselWidth - cardWidth * 3) {
-        scrollPosition += cardWidth;
-        $("#carouselExampleControls .carousel-inner").animate(
-          { scrollLeft: scrollPosition },
-          600
-        );
-      }
-    });
-      $("#carouselExampleControls .carousel-control-prev").on("click", function () {
-      if (scrollPosition > 1) {
-        scrollPosition -= cardWidth;
-        $("#carouselExampleControls .carousel-inner").animate(
-          { scrollLeft: scrollPosition },
-          600
-        );
-      }
-    });
-
-
-
-
-
-
-  } else {
-    $(multipleCardCarousel).addClass("slide");
-  }
+        "#recomend"
+    );
+    if (window.matchMedia("(min-width: 576px)").matches) {
+        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+            interval: false,
+            wrap: false
+        });
+        var carouselWidth = $(".menu-inner")[0].scrollWidth;
+        var cardWidth = $(".menu-item").width();
+        var scrollPosition = 0;
+        $("#recomend .next-icon").on("click", function () {
+            if (scrollPosition < carouselWidth - cardWidth * 3) {
+                scrollPosition += cardWidth;
+                $("#recomend .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+        $("#recomend .prev-icon").on("click", function () {
+            if (scrollPosition > 1) {
+                scrollPosition -= cardWidth;
+                $("#recomend .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+    } else {
+        $(multipleCardCarousel).addClass("slide");
+    }
+});
+$(document).ready(function () {
+    var multipleCardCarousel = document.querySelector(
+        "#foodtype"
+    );
+    if (window.matchMedia("(min-width: 576px)").matches) {
+        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+            interval: false,
+            wrap: false
+        });
+        var carouselWidth = $(".menu-inner")[0].scrollWidth;
+        var cardWidth = $(".menu-item").width();
+        var scrollPosition = 0;
+        $("#foodtype .next-icon").on("click", function () {
+            if (scrollPosition < carouselWidth - cardWidth * 3) {
+                scrollPosition += cardWidth;
+                $("#foodtype .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+        $("#foodtype .prev-icon").on("click", function () {
+            if (scrollPosition > 1) {
+                scrollPosition -= cardWidth;
+                $("#foodtype .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+    } else {
+        $(multipleCardCarousel).addClass("slide");
+    }
+});
+$(document).ready(function () {
+    var multipleCardCarousel = document.querySelector(
+        "#DiningStyle"
+    );
+    if (window.matchMedia("(min-width: 576px)").matches) {
+        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+            interval: false,
+            wrap: false
+        });
+        var carouselWidth = $(".menu-inner")[0].scrollWidth;
+        var cardWidth = $(".menu-item").width();
+        var scrollPosition = 0;
+        $("#DiningStyle .next-icon").on("click", function () {
+            if (scrollPosition < carouselWidth - cardWidth * 3) {
+                scrollPosition += cardWidth;
+                $("#DiningStyle .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+        $("#DiningStyle .prev-icon").on("click", function () {
+            if (scrollPosition > 1) {
+                scrollPosition -= cardWidth;
+                $("#DiningStyle .menu-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+    } else {
+        $(multipleCardCarousel).addClass("slide");
+    }
 });
