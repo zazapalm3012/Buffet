@@ -19,15 +19,6 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
                 return RedirectToAction("Index", "Home");
             }
-            var obj = _db.Restaurants.Find(id);
-            if (obj == null)
-            {
-                TempData["ErrorMessage"] = "ไม่พบ ID";
-                return RedirectToAction("Index");
-            }
-            HttpContext.Session.SetString("ResId", id);
-            var shop = from i in _db.Restaurants
-                       where i.ResId.Equals(id)
 
             var pdvm = from i in _db.Restaurants
 
@@ -49,7 +40,7 @@ namespace Buffet.Controllers
             //ถ้าพบ ส่ง Obj pd ที่ได้ให้ View ไปแสดง
             return View(pdvm);
         }
-        
+
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
@@ -57,7 +48,7 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
                 return RedirectToAction("Index", "Home");
             }
-           
+
 
             ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
             ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");
@@ -65,7 +56,7 @@ namespace Buffet.Controllers
 
             return View();
 
-            
+
         }
 
         public IActionResult CreateCourse()
@@ -79,16 +70,16 @@ namespace Buffet.Controllers
             ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");*/
             return View();
         }
-         public IActionResult CreateTablesets()
-         {
-             if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
-             {
-                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
-                 return RedirectToAction("Index", "Home");
-             }
-             
-             return View();
-         }
+        public IActionResult CreateTablesets()
+        {
+            if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateTablesets(Tableset obj)
@@ -221,7 +212,7 @@ namespace Buffet.Controllers
                 ViewBag.ErrorMessage = ex.Message;
                 return View(obj);
             }
-         
+
         }
 
         public IActionResult Delete(string id)
@@ -257,7 +248,7 @@ namespace Buffet.Controllers
                 {
                     _db.Restaurants.Remove(obj);
                     _db.SaveChanges();
-                    return RedirectToAction("Index","staff");
+                    return RedirectToAction("Index", "staff");
                 }
                 else
                 {

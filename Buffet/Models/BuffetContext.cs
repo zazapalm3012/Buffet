@@ -45,8 +45,6 @@ public partial class BuffetContext : DbContext
     */
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Thai_CI_AS");
-
         modelBuilder.Entity<Admin>(entity =>
         {
             entity.HasKey(e => e.AdminId).HasName("PK_Admin");

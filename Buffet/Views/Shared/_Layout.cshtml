@@ -86,6 +86,13 @@
                     <ul class="navbar-nav ">
                         @if (CusId != null)
                         {
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-light me-2">
+                            <a class="nav-link text-dark" asp-controller="Customer" asp-action="Show" asp-route-id="@CusId">
+                                @CusName
+                            </a>
+                        </button>
+                    </li>
                             <li class="nav-item">
                                 <button type="button" class="btn btn-light me-2">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
