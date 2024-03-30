@@ -1,27 +1,111 @@
-﻿.navbar-brand {
-    margin: 0px;
-    border-radius: 100%;
-}
-.cover {
-    background-image: url("/Icon/HomePage-2.jpg");
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 50vh;
+﻿/*Top Background*/
+
+* {
+    box-sizing: border-box
 }
 
-.search {
-    padding: 10px;
+.c-item {
+    height: 700px;
 }
-    .search .search-input {
-        padding: 0 10px;
-        width: 550px;
-        caret-color: #536bf6;
-        font-size: 21px;
-        font-weight: 300;
-        color: black;
-        transition: width 0.4s linear;
+
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0,6);
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.4);
     }
-.card {
-    margin: 20px;
+
+.fade-c-item {
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+
+
+
+
+/*===========================================================================================================================*/
+/*Recomend , Foodtype , Dining Style*/
+
+.menu-slider {
+    background-color: #fff;
+    padding: 3em 2em;
+}
+
+.menu-title {
+    color: #fff;
+}
+
+    .menu-title h2 {
+        padding-left: 0.2em;
+    }
+
+.card {
+    margin: 0 0.5em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+    height: 100%;
+}
+
+.prev-icon,
+.next-icon {
+    background-color: #fff;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    top: 60%;
+    transform: translateY(-50%);
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+}
+
+@media (min-width: 576px) {
+    .menu-item {
+        margin-right: 0;
+        flex: 0 0 50%;
+        display: block;
+    }
+
+    .menu-inner {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    .menu-inner {
+        padding: 1em;
+    }
+
+    .prev-icon,
+    .next-icon {
+        width: 3em;
+        height: 3em;
+        position: absolute;
+        left: 1em;
+        top: 90%;
+        opacity: 1;
+    }
+
+    .next-icon {
+        left: 4.5em;
+    }
+}
+
+/*===========================================================================================================================*/
