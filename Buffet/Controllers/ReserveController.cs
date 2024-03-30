@@ -54,7 +54,6 @@ namespace Buffet.Controllers
                        {
                            ResId = i.ResId,
                            ResName = i.ResName,
-                           ResImg = i.ResImg,
                            ResPhone = i.ResPhone,
                            ResAvg = i.ResAvg,
                            ResLocation = i.ResLocation,

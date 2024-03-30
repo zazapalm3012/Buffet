@@ -20,6 +20,9 @@
                 <a class="btn btn-primary" asp-action="CreateCourse">
                     <i class="bg-info bi-plus-lg"></i>เพิ่มCourse
                 </a>
+                <a class="btn btn-primary" asp-action="CreateTablesets">
+                    <i class="bg-info bi-plus-lg"></i>เพิ่มชุดโต๊ะ
+                </a>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="input-group">
@@ -34,7 +37,7 @@
     </form>
     <table class="table">
         <tr>
-            <th></th>
+ 
             <th>รหัสร้านอาหาร</th>
             <th>ชื่อร้านอาหาร</th>
             <th>รายละเอียด</th>
@@ -50,7 +53,7 @@
             i++;
             //Razor page ใข้เครื่องหมาย @ หน้าตัวแปรที่ต้องการให้แสดงผล
             <tr>
-                <td>@i</td>
+
                 <td>@item.ResId</td>
                 <td>@item.ResName</td>
                 <td>@item.ResDtl</td>

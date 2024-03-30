@@ -66,10 +66,7 @@ namespace Buffet.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Edit()
-        {
-            return View();
-        }
+
 
 
     }

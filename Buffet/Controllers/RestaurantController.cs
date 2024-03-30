@@ -2,6 +2,7 @@
 using Buffet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Buffet.Controllers
 {
@@ -19,25 +20,17 @@ namespace Buffet.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            //เขียน LINQ อ่านค่าจาก Table Products ผ่าน DBContext
-            //ค่าที่ได้โยนใส่ Obj pd
-            //var pd = from p in _db.Products
-            //         select p;
             var pdvm = from i in _db.Restaurants
-
 
                        select new Pdvm
                        {
                            ResId = i.ResId,
                            ResName = i.ResName,
-                           ResImg = i.ResImg,
                            ResPhone = i.ResPhone,
                            ResAvg = i.ResAvg,
                            ResLocation = i.ResLocation,
                            ResDtl = i.ResDtl,
                            CourseId = i.CourseId,
-
-
                        };
 
             //ถ้าค่าที่อ่านได้เป็น Null ก็ Return เรียก Function NorFound()
@@ -47,7 +40,7 @@ namespace Buffet.Controllers
             //ถ้าพบ ส่ง Obj pd ที่ได้ให้ View ไปแสดง
             return View(pdvm);
         }
-
+        
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
@@ -55,9 +48,15 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
                 return RedirectToAction("Index", "Home");
             }
+           
+
             ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
             ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");
+            ViewData["Set"] = new SelectList(_db.Tablesets, "TablesetIds", "Total");
+
             return View();
+
+            
         }
 
         public IActionResult CreateCourse()
@@ -70,6 +69,43 @@ namespace Buffet.Controllers
             /*ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
             ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");*/
             return View();
+        }
+         public IActionResult CreateTablesets()
+         {
+             if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
+             {
+                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                 return RedirectToAction("Index", "Home");
+             }
+             
+             return View();
+         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateTablesets(Tableset obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var CourseIdCount = (from course in _db.Tablesets select course).Count();
+                    var CourseId = CourseIdCount + 1;
+                    var Total = "S=" + obj.Ssize + " M=" + obj.Msize + " L=" + obj.Lsize;
+                    obj.TablesetIds = CourseId;
+                    obj.Total = Total;
+                    _db.Tablesets.Add(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View(obj);
+            }
+            ViewBag.ErrorMessage = "การบันทึกผิดพลาด";
+            return View(obj);
         }
 
 
@@ -144,8 +180,11 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่พบ ID";
                 return RedirectToAction("Index");
             }
+
+
             ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
             ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");
+            ViewData["Set"] = new SelectList(_db.Tablesets, "TablesetIds", "Total");
 
             return View(obj);
         }

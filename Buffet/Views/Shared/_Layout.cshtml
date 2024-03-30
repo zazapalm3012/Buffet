@@ -25,9 +25,19 @@
      
         <nav class="fixed-top navbar navbar-dark navbar-expand-sm navbar-toggleable-sm text-white " style="background-color: #FB054F;">
             <div class="container">
-                <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/Icon/icon.png" alt="" width="50" height="50">
-                </a>
+                @if (StfId != null)
+                {
+                    <a class="navbar-brand " asp-area="" asp-controller="Staff" asp-action="Index">
+                        <img src="/Icon/icon.png" alt="" width="50" height="50">
+                    </a>
+                }
+                else
+                {
+                    <a class="navbar-brand " asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="/Icon/icon.png" alt="" width="50" height="50">
+                    </a>
+                }
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

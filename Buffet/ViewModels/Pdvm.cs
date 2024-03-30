@@ -30,6 +30,8 @@
         public string CourseType { get; set; } = null!;
 
         public string? CourseDtl { get; set; }
+        public string ResTotalId { get; set; } = null!;
+
 
     }
 }

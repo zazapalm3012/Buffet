@@ -19,13 +19,15 @@ public partial class BuffetContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
 
+    public virtual DbSet<Brand> Brands { get; set; }
+
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
-    public virtual DbSet<ResTableTotal> ResTableTotals { get; set; }
+    public virtual DbSet<Person> Persons { get; set; }
 
     public virtual DbSet<Restaurant> Restaurants { get; set; }
 
@@ -34,6 +36,8 @@ public partial class BuffetContext : DbContext
     public virtual DbSet<Staff> Staffs { get; set; }
 
     public virtual DbSet<Table> Tables { get; set; }
+
+    public virtual DbSet<Tableset> Tablesets { get; set; }
     /*
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -82,6 +86,16 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.TableId)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Brand>(entity =>
+        {
+            entity.HasKey(e => e.BrandId).HasName("PK_ProductBrands");
+
+            entity.Property(e => e.BrandId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("BrandID");
+            entity.Property(e => e.BrandName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Course>(entity =>
@@ -148,19 +162,14 @@ public partial class BuffetContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<ResTableTotal>(entity =>
+        modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.TTotalId).HasName("PK_TableTotal");
-
-            entity.ToTable("ResTableTotal");
-
-            entity.Property(e => e.TTotalId)
+            entity.Property(e => e.PersonId)
+                .ValueGeneratedNever()
+                .HasColumnName("PersonID");
+            entity.Property(e => e.LastName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("T_TotalId");
-            entity.Property(e => e.Ltotal).HasColumnName("LTotal");
-            entity.Property(e => e.Mtotal).HasColumnName("MTotal");
-            entity.Property(e => e.Stotal).HasColumnName("STotal");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Restaurant>(entity =>
@@ -176,9 +185,6 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.ResDtl)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ResImg)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.ResLocation)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -188,14 +194,10 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.ResPhone)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.TTotalId)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("T_TotalId");
             entity.Property(e => e.TableId)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ThemeId)
+            entity.Property(e => e.TablesetIds)
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.TypeId)
@@ -249,6 +251,25 @@ public partial class BuffetContext : DbContext
             entity.HasKey(e => e.TableId).HasName("PK_Table");
 
             entity.Property(e => e.TableId)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Tableset>(entity =>
+        {
+            entity.HasKey(e => e.TablesetIds);
+
+            entity.Property(e => e.TablesetIds).ValueGeneratedNever();
+            entity.Property(e => e.Lsize)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Msize)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Ssize)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Total)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });

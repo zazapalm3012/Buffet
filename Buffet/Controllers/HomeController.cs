@@ -6,6 +6,10 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
+
+    
+
+
 namespace Buffet.Controllers
 {
     public class HomeController : Controller
@@ -24,11 +28,11 @@ namespace Buffet.Controllers
                        {
                            ResId = i.ResId,
                            ResName = i.ResName,
-                           ResImg = i.ResImg,
 
                        };
             if (shop == null) return NotFound();
             ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            
             return View(shop);
         }
 
@@ -130,7 +134,7 @@ namespace Buffet.Controllers
                        {
                            ResId = i.ResId,
                            ResName = i.ResName,
-                           ResImg = i.ResImg,
+                           
                            ResPhone = i.ResPhone,
                            ResAvg   = i.ResAvg,
                            ResLocation  = i.ResLocation
