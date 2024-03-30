@@ -86,7 +86,7 @@ namespace Buffet.Controllers
             if (cus.ToList().Count() == 0)
             {
                 TempData["ErrorMessage"] = "I Show Gay";
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             string CusId;

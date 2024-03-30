@@ -19,6 +19,15 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
                 return RedirectToAction("Index", "Home");
             }
+            var obj = _db.Restaurants.Find(id);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
+            HttpContext.Session.SetString("ResId", id);
+            var shop = from i in _db.Restaurants
+                       where i.ResId.Equals(id)
 
             var pdvm = from i in _db.Restaurants
 

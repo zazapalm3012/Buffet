@@ -12,13 +12,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Buffet</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Buffet.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Buffet</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Buffet.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
@@ -122,26 +122,26 @@
             </div>
         </nav>
 
-    </header>
-    <div class=" ">
-        <main role="main" class="pb-3">
-    <div class="">
-        <main role="main">
+	</header>
+	<div class=" ">
+		<main role="main" class="pb-3">
+	<div class="">
+		<main role="main">
 
-            @RenderBody()
-        </main>
-    </div>
+					@RenderBody()
+		</main>
+	</div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container-fluid text-black" style="background:pink">
-            &copy; 2567 - Buffet - <a asp-area="" asp-controller="Home" asp-action="Privacy">ข้อกำหนดและเงื่อนไข</a>
-        </div>
+	<footer class="border-top footer text-muted">
+		<div class="container-fluid text-black" style="background:pink">
+			&copy; 2567 - Buffet - <a asp-area="" asp-controller="Home" asp-action="Privacy">ข้อกำหนดและเงื่อนไข</a>
+		</div>
 
-    </footer>
+	</footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+			@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
