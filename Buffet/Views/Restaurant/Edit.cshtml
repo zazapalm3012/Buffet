@@ -62,7 +62,13 @@
         </form>
     </div>
 </div>
-
+<div class="col-5">
+    <form method="post" enctype="multipart/form-data" asp-action="ResImgUpload">
+        <input name="id" type="hidden" value="@Model.ResId" />
+        <input type="file" accept="image/jpeg" name="imgfiles" class="form-control" required />
+        <button type="submit" class="btn btn-success">Upload</button>
+    </form>
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

@@ -66,8 +66,8 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
                 return RedirectToAction("Index", "Home");
             }
-            /*ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
-            ViewData["Course"] = new SelectList(_db.Courses, "CourseId", "CourseName");*/
+            //ViewData["Type"] = new SelectList(_db.RestaurantsTypes, "TypeId", "TypeName");
+            ViewData["name"] = new SelectList(_db.Restaurants, "ResId", "ResName");
             return View();
         }
         public IActionResult CreateTablesets()
@@ -263,6 +263,29 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ลบข้อมูลไม่สำเร็จ";
                 return RedirectToAction("Index", "staff");
             }
+        }
+
+        public IActionResult ResImgUpload(IFormFile imgfiles, string id)
+        {
+            var FileName = id;
+            var FileExtension = Path.GetExtension(imgfiles.FileName);
+            var SaveFilename = FileName + FileExtension;
+            var SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\imgres");
+            var SaveFilePath = Path.Combine(SavePath, SaveFilename);
+            using (FileStream fs = System.IO.File.Create(SaveFilePath))
+            {
+                imgfiles.CopyTo(fs);
+                fs.Flush();
+            }
+
+            var obj = _db.Restaurants.Find(id);
+            if (obj != null)
+            {
+                obj.ResImg = SaveFilename;
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index","Staff");
+
         }
 
     }

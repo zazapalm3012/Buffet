@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\imgcus\" />
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\imgres\" />
     <Folder Include="wwwroot\public\" />
   </ItemGroup>
 
