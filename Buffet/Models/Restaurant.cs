@@ -19,7 +19,7 @@ public partial class Restaurant
 
     public string ResDtl { get; set; } = null!;
 
-    public string TableId { get; set; } = null!;
+    public int TableId { get; set; }
 
     public string TablesetIds { get; set; } = null!;
 

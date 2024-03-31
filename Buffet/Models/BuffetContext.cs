@@ -176,9 +176,6 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.ResPhone)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.TableId)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.TablesetIds)
                 .HasMaxLength(255)
                 .IsUnicode(false);
