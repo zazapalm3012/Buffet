@@ -13,10 +13,10 @@
 <div class="container pt-5 mt-5">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-9">
-            <a class="btn btn-primary" asp-action="Index" >
+            <a class="btn btn-primary" asp-action="Index">
                 <i class=""></i>Restaurant
             </a>
-            <a class="btn btn-primary" asp-action="CourseList" >
+            <a class="btn btn-primary" asp-action="CourseList">
                 <i class=""></i>Course
             </a>
             <a class="btn btn-primary" asp-action="SetList">
@@ -27,12 +27,12 @@
             </a>
         </div>
     </div>
-    </div>
+</div>
 <div class="container pt-3 mt-5">
     <form asp-controller="Restaurant" asp-action="Index">
         <div class="row">
             <div class="col-sm-6 col-md-8 col-lg-9">
-                <a class="btn btn-primary" asp-action="Create" >
+                <a class="btn btn-primary" asp-action="Create">
                     <i class="bg-info bi-plus-lg"></i>เพิ่มร้านอาหาร
                 </a>
                 <a class="btn btn-primary" asp-action="CreateCourse">
@@ -58,9 +58,12 @@
     </form>
     <table class="table">
         <tr>
- 
+
+            <th>รหัสCourse</th>
             <th>รหัสร้านอาหาร</th>
-            <th>ชื่อร้านอาหาร</th>
+            <th>ชื่อCourse</th>
+            <th>ราคา</th>
+            <th>ประเภท</th>
             <th>รายละเอียด</th>
 
         </tr>
@@ -75,16 +78,18 @@
             //Razor page ใข้เครื่องหมาย @ หน้าตัวแปรที่ต้องการให้แสดงผล
             <tr>
 
+                <td>@item.CourseId</td>
                 <td>@item.ResId</td>
-                <td>@item.ResName</td>
-                <td>@item.ResDtl</td>
+                <td>@item.CourseName</td>
+                <td>@item.CoursePrice</td>
+                <td>@item.CourseType</td>
+                <td>@item.CourseDtl</td>
 
-                
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ResId">Edit</a>
+                    <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a>
                 </td>
                 <td class="text-center">
-                    <a asp-action="Delete" asp-route-id="@item.ResId">Delete</a>
+                    <a asp-action="DeleteCourse" asp-route-id="@item.CourseId">Delete</a>
                 </td>
             </tr>
 

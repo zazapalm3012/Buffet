@@ -15,12 +15,18 @@ namespace Buffet.ViewModels
         public string ResAvg { get; set; } = null!;
 
         public string TypeId { get; set; } = null!;
+        public string TypeName { get; set; } = null!;
 
         public string ResDtl { get; set; } = null!;
 
         public string TableId { get; set; } = null!;
 
         public string TablesetIds { get; set; } = null!;
+        public int Ssize { get; set; }
+
+        public int Msize { get; set; }
+
+        public int Lsize { get; set; }
 
         public int CourseId { get; set; }
 

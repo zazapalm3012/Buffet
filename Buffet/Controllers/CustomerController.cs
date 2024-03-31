@@ -105,6 +105,7 @@ namespace Buffet.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    HttpContext.Session.SetString("CusName", obj.CusName);
                     _db.Customers.Update(obj);
                     _db.SaveChanges();
                     return RedirectToAction("Show", new { id = obj.CusId});
