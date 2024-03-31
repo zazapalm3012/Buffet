@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System.Reflection.Metadata;
 
 namespace Buffet.Controllers
 {
@@ -49,6 +50,13 @@ namespace Buffet.Controllers
                 imgfiles.CopyTo(fs);
                 fs.Flush();
             }
+
+            var obj = _db.Customers.Find(theid);
+            if (obj != null)
+            {
+                obj.CusImg = SaveFilename;
+                _db.SaveChanges();
+            }
             return RedirectToAction("Show", new { id = theid });
 
         }
@@ -63,6 +71,14 @@ namespace Buffet.Controllers
             {
                 System.IO.File.Delete(filePath);
             }
+
+            var obj = _db.Customers.Find(id);
+            if (obj != null)
+            {
+                obj.CusImg = null;
+                _db.SaveChanges();
+            }
+
             return RedirectToAction("Show", new { id = id });
         }
 
@@ -105,8 +121,6 @@ namespace Buffet.Controllers
                 ViewBag.ErrorMessage = ex.Message;
                 return View(obj);
             }
-            ViewBag.ErrorMessage = "การบันทึกผิดพลาด";
-            return View(obj);
         }
     }
 }
