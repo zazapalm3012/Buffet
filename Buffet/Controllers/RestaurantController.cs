@@ -108,19 +108,24 @@ namespace Buffet.Controllers
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
             obj.BookId = "B" + 00 + bookIdCount;
+            var tableUpdate = _db.ResTableTotals.FirstOrDefault();
             if (obj.BookSeat <= 4)
             {
-                obj.TableId = "A1";
+                obj.TableId = "S";
+                tableUpdate.Stotal -= 1;
             }
             else if (obj.BookSeat <= 6)
             {
-                obj.TableId = "A2";
+                obj.TableId = "M";
+                tableUpdate.Mtotal -= 1;
             }
-            else if (obj.BookSeat <= 10)
+            else if (obj.BookSeat <= 10 && obj.BookSeat > 6)
             {
-                obj.TableId = "A3";
+                obj.TableId = "L";
+                tableUpdate.Ltotal -= 1;
             }
 
+            _db.SaveChanges();
             
             string serializedBook = JsonConvert.SerializeObject(obj);
             TempData["ReservedBook"] = serializedBook;
