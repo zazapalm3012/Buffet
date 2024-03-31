@@ -164,6 +164,9 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.ResDtl)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.ResImg)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.ResLocation)
                 .HasMaxLength(255)
                 .IsUnicode(false);

@@ -22,4 +22,6 @@ public partial class Restaurant
     public string TableId { get; set; } = null!;
 
     public string TablesetIds { get; set; } = null!;
+
+    public string? ResImg { get; set; }
 }

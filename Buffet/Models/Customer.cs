@@ -15,5 +15,5 @@ public partial class Customer
 
     public string CusPhone { get; set; } = null!;
 
-    public string CusImg { get; set; } = null!;
+    public string? CusImg { get; set; }
 }
