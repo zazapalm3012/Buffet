@@ -95,7 +95,7 @@ namespace Buffet.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "ฐานข้อมุลไม่พร้อมทำงาน";
+                    ViewData["err"] = "ฐานข้อมุลไม่พร้อมทำงาน";
                     return View(obj);
                 }
 

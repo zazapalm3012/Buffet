@@ -263,15 +263,6 @@ public partial class BuffetContext : DbContext
             entity.HasKey(e => e.TablesetIds);
 
             entity.Property(e => e.TablesetIds).ValueGeneratedNever();
-            entity.Property(e => e.Lsize)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.Msize)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.Ssize)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.Total)
                 .HasMaxLength(255)
                 .IsUnicode(false);

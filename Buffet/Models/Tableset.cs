@@ -7,11 +7,11 @@ public partial class Tableset
 {
     public int TablesetIds { get; set; }
 
-    public string Ssize { get; set; } = null!;
+    public int Ssize { get; set; }
 
-    public string Msize { get; set; } = null!;
+    public int Msize { get; set; }
 
-    public string Lsize { get; set; } = null!;
+    public int Lsize { get; set; }
 
     public string? Total { get; set; }
 }

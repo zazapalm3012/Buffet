@@ -28,8 +28,6 @@ namespace Buffet.Controllers
             return View();
         }
 
-   
-
         public IActionResult Store(string id)
         {
             if (id == null)
@@ -68,14 +66,27 @@ namespace Buffet.Controllers
                 return View(shop);
         }
 
-        public IActionResult Reserve()
+        public IActionResult Book(string id)
         {
-
+            if (id == null)
+            {
+                TempData["ErrorMessage"] = "ระบุ ID";
+                return RedirectToAction("Index");
+            }
+            var x = Int32.Parse(id);
+            var obj = _db.Courses.Find(x);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
             if (HttpContext.Session.GetString("CusId") == null)
             {
                 TempData["ErrorMessage"] = "กรุณาล็อกอิน";
                 return RedirectToAction("Login", "Home");
             }
+            HttpContext.Session.SetString("Course", id);
+
             DateTime theDate = DateTime.Now.Date;
             var rep = from b in _db.Books
 
@@ -100,29 +111,30 @@ namespace Buffet.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Reserve(Book obj)
+        public IActionResult Book(Book obj)
         {
             
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
             obj.BookId = "B" + 00 + bookIdCount;
+            var tableUpdate = _db.Tablesets.FirstOrDefault();
             if (obj.BookSeat <= 4)
             {
-                obj.TableId = "A1";
+                obj.TableId = "S";
+                tableUpdate.Ssize -= 1;
             }
             else if (obj.BookSeat <= 6)
             {
-                obj.TableId = "A2";
+                obj.TableId = "M";
+                tableUpdate.Msize -= 1;
             }
-            else if (obj.BookSeat <= 10)
+            else if (obj.BookSeat <= 10 && obj.BookSeat > 6)
             {
-                obj.TableId = "A3";
+                obj.TableId = "L";
+                tableUpdate.Lsize -= 1;
             }
 
-            
-            string serializedBook = JsonConvert.SerializeObject(obj);
-            TempData["ReservedBook"] = serializedBook;
-
+            _db.SaveChanges();
             return RedirectToAction("Total");
 
         }
