@@ -11,28 +11,48 @@ namespace KuShop.Controllers
         public ReportController(BuffetContext db) { _db = db; }
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         public IActionResult SaleDaily()
         {
+            if (HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
             DateTime thedate = DateTime.Today;
+            DateTime endDate = thedate.AddDays(1).Date;
             var rep = from cd in _db.Books
-                      where cd.SelectDate >= thedate 
+                      where cd.SelectDate >= thedate && cd.SelectDate <= endDate
                       select new RepBook
                       {
                           ResId = cd.ResId,
                           SelectDate = cd.SelectDate,
 
                       };
-            ViewBag.theDate = thedate.ToString("yyyy-MM-dd HH:mm:ss");
+            ViewBag.theDate = thedate.ToString("yyyy/MM/dd HH:mm:ss");
             return View(rep);
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaleDaily(DateTime thedate)
         {
+            if (HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+            DateTime endDate = thedate.AddDays(1).Date;
+
             var rep = from cd in _db.Books
+                      where cd.SelectDate >= thedate && cd.SelectDate <= endDate
 
                       select new RepBook
                       {
@@ -40,40 +60,40 @@ namespace KuShop.Controllers
                           SelectDate = cd.SelectDate,
 
                       };
-            ViewBag.theDate = thedate.ToString("yyyy-MM-dd HH:mm:ss");
+            ViewBag.theDate = thedate.ToString("yyyy/MM/dd HH:mm:ss");
 
             return View(rep);
 
         }
 
-        /* public IActionResult SaleMonthly()
+        public IActionResult SaleMonthly()
         {
+            if (HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
             //กำหนดวันแรก และคำนวณหาวันสุดท้ายของเดือนปัจจุบัน
             var theMonth = DateTime.Now.Month;
             var theYear = DateTime.Now.Year;
             //วันแรกคือวันที่ 1 ของเดือน
-            DateOnly sDate = new DateOnly(theYear, theMonth, 1);
+            DateTime sDate = new DateTime(theYear, theMonth, 1);
             //วันสุดท้ายคือวันที 1 ของเดือนหน้า ลบไป1วัน
-            DateOnly eDate = new DateOnly(theYear, theMonth, 1).AddMonths(1).AddDays(-1);
+            DateTime eDate = new DateTime(theYear, theMonth, 1).AddMonths(1).AddDays(-1);
 
-            var rep = from cd in _db.CartDtls
+            var rep = from cd in _db.Books
 
-                      join p in _db.Products on cd.PdId equals p.PdId into join_cd_p
-                      from cd_p in join_cd_p.DefaultIfEmpty()
+                      where cd.SelectDate >= sDate && cd.SelectDate <= eDate
 
-                      join c in _db.Carts on cd.CartId equals c.CartId into join_cd
-                      from c_cd in join_cd
-                      where c_cd.CartDate >= sDate && c_cd.CartDate <= eDate
-                      group cd by new { cd.PdId, cd_p.PdName } into g
-                      select new RepSale
+                      select new RepBook
                       {
-                          PdId = g.Key.PdId,
-                          PdName = g.Key.PdName,
-                          CdtlMoney = g.Sum(x => x.CdtlMoney),
-                          CdtlQty = g.Sum(x => x.CdtlQty)
+                          ResId = cd.ResId,
+                          SelectDate = cd.SelectDate,
+                          /*CdtlMoney = g.Sum(x => x.CdtlMoney),
+                          CdtlQty = g.Sum(x => x.CdtlQty)*/
                       };
-            ViewBag.sDate = sDate.ToString("yyyy-MM-dd");
-            ViewBag.eDate = eDate.ToString("yyyy-MM-dd");
+            ViewBag.sDate = sDate.ToString("yyyy-MM-dd HH:mm:ss");
+            ViewBag.eDate = eDate.ToString("yyyy-MM-dd HH:mm:ss");
 
             return View(rep);
 
@@ -81,29 +101,29 @@ namespace KuShop.Controllers
         }
        [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SaleMonthly(DateOnly sDate, DateOnly eDate)
+        public IActionResult SaleMonthly(DateTime sDate, DateTime eDate)
         {
-            var rep = from cd in _db.CartDtls
+            if (HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+            var rep = from cd in _db.Books
 
-                      join p in _db.Products on cd.PdId equals p.PdId into join_cd_p
-                      from cd_p in join_cd_p.DefaultIfEmpty()
+                      where cd.SelectDate >= sDate && cd.SelectDate <= eDate
 
-                      join c in _db.Carts on cd.CartId equals c.CartId into join_cd
-                      from c_cd in join_cd
-                      where c_cd.CartDate >= sDate && c_cd.CartDate <= eDate
-                      group cd by new { cd.PdId, cd_p.PdName } into g
-                      select new RepSale
+                      select new RepBook
                       {
-                          PdId = g.Key.PdId,
-                          PdName = g.Key.PdName,
-                          CdtlMoney = g.Sum(x => x.CdtlMoney),
-                          CdtlQty = g.Sum(x => x.CdtlQty)
+                          ResId = cd.ResId,
+                          SelectDate = cd.SelectDate,
+                          /*CdtlMoney = g.Sum(x => x.CdtlMoney),
+                          CdtlQty = g.Sum(x => x.CdtlQty)*/
                       };
-            ViewBag.sDate = sDate.ToString("yyyy-MM-dd");
-            ViewBag.eDate = eDate.ToString("yyyy-MM-dd");
+            ViewBag.sDate = sDate.ToString("yyyy-MM-dd HH:mm:ss");
+            ViewBag.eDate = eDate.ToString("yyyy-MM-dd HH:mm:ss");
             return View(rep);
 
-        }*/
+        }
 
 
     }

@@ -19,15 +19,11 @@ public partial class BuffetContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
 
-    public virtual DbSet<Brand> Brands { get; set; }
-
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
-
-    public virtual DbSet<Person> Persons { get; set; }
 
     public virtual DbSet<Restaurant> Restaurants { get; set; }
 
@@ -86,16 +82,6 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.TableId)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<Brand>(entity =>
-        {
-            entity.HasKey(e => e.BrandId).HasName("PK_ProductBrands");
-
-            entity.Property(e => e.BrandId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("BrandID");
-            entity.Property(e => e.BrandName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Course>(entity =>
@@ -161,16 +147,6 @@ public partial class BuffetContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.PayType)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<Person>(entity =>
-        {
-            entity.Property(e => e.PersonId)
-                .ValueGeneratedNever()
-                .HasColumnName("PersonID");
-            entity.Property(e => e.LastName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
         });

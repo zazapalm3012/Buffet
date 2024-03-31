@@ -6,9 +6,14 @@
     string theDate;
     //ถ้าไม่ได้ระบุวันให้เป็นวันปัจจุบัน
     if (ViewBag.theDate != null)
+    {
         theDate = ViewBag.theDate;
+
+    }
     else
-        theDate = DateTime.Now.Date.ToString("yyyy-MM-dd HH:mm:ss", us);
+    {
+        theDate = DateTime.Today.ToString("yyyy/MM/dd HH:mm:ss", us);
+    }
 }
 @if (TempData["ErrorMessage"] != null)
 {
@@ -50,3 +55,19 @@
         </tr>
     }
 </table>
+<!--กำหนดพื้นที่ Script -->
+@section Scripts {
+    <script>
+        //ระบุ id ที่ต้องการใช้
+        $('#theDate').datetimepicker({
+            showSecond: true,
+            dateFormat: 'yy/mm/dd',
+            timeFormat: 'hh:mm:ss',
+            stepHour: 2,
+            stepMinute: 10,
+            stepSecond: 10
+
+        })
+
+    </script>
+}
