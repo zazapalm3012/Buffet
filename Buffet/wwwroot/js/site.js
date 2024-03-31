@@ -66,37 +66,3 @@ $(document).ready(function () {
         $(multipleCardCarousel).addClass("slide");
     }
 });
-$(document).ready(function () {
-    var multipleCardCarousel = document.querySelector(
-        "#DiningStyle"
-    );
-    if (window.matchMedia("(min-width: 576px)").matches) {
-        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
-            interval: false,
-            wrap: false
-        });
-        var carouselWidth = $(".menu-inner")[0].scrollWidth;
-        var cardWidth = $(".menu-item").width();
-        var scrollPosition = 0;
-        $("#DiningStyle .next-icon").on("click", function () {
-            if (scrollPosition < carouselWidth - cardWidth * 3) {
-                scrollPosition += cardWidth;
-                $("#DiningStyle .menu-inner").animate(
-                    { scrollLeft: scrollPosition },
-                    600
-                );
-            }
-        });
-        $("#DiningStyle .prev-icon").on("click", function () {
-            if (scrollPosition > 1) {
-                scrollPosition -= cardWidth;
-                $("#DiningStyle .menu-inner").animate(
-                    { scrollLeft: scrollPosition },
-                    600
-                );
-            }
-        });
-    } else {
-        $(multipleCardCarousel).addClass("slide");
-    }
-});
