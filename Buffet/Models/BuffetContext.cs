@@ -31,16 +31,18 @@ public partial class BuffetContext : DbContext
 
     public virtual DbSet<Staff> Staffs { get; set; }
 
-    public virtual DbSet<Table> Tables { get; set; }
+    public virtual DbSet<TableRemain> TableRemains { get; set; }
 
     public virtual DbSet<Tableset> Tablesets { get; set; }
-    /*
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=127.0.0.1;Initial Catalog=Buffet;User ID=dev;Password=1234;Encrypt=False");
-    */
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseCollation("Thai_CI_AS");
+
         modelBuilder.Entity<Admin>(entity =>
         {
             entity.HasKey(e => e.AdminId).HasName("PK_Admin");
@@ -90,6 +92,9 @@ public partial class BuffetContext : DbContext
 
             entity.Property(e => e.CourseId).ValueGeneratedNever();
             entity.Property(e => e.CourseDtl)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.CourseImg)
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.CourseName)
@@ -179,9 +184,6 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.TableId)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.TablesetIds)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.TypeId)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -228,9 +230,11 @@ public partial class BuffetContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Table>(entity =>
+        modelBuilder.Entity<TableRemain>(entity =>
         {
             entity.HasKey(e => e.TableId).HasName("PK_Table");
+
+            entity.ToTable("TableRemain");
 
             entity.Property(e => e.TableId)
                 .HasMaxLength(255)

@@ -93,7 +93,7 @@ namespace Buffet.Controllers
                       join co in _db.Courses on b.CourseId equals co.CourseId into join_co
                       from b_co in join_co
 
-                      join t in _db.Tables on b.TableId equals t.TableId into join_t
+                      join t in _db.TableRemains on b.TableId equals t.TableId into join_t
                       from b_t in join_t
 
                       select new Book
@@ -117,21 +117,18 @@ namespace Buffet.Controllers
             obj.SelectDate = DateTime.Now;
             var bookIdCount = (from id in _db.Books select id).Count();
             obj.BookId = "B" + 00 + bookIdCount;
-            var tableUpdate = _db.Tablesets.FirstOrDefault();
+            var tableUpdate = _db.TableRemains.FirstOrDefault();
             if (obj.BookSeat <= 4)
             {
-                obj.TableId = "S";
-                tableUpdate.Ssize -= 1;
+                tableUpdate.RemainS -= 1;
             }
             else if (obj.BookSeat <= 6)
             {
-                obj.TableId = "M";
-                tableUpdate.Msize -= 1;
+                tableUpdate.RemainM -= 1;
             }
             else if (obj.BookSeat <= 10 && obj.BookSeat > 6)
             {
-                obj.TableId = "L";
-                tableUpdate.Lsize -= 1;
+                tableUpdate.RemainL -= 1;
             }
 
             _db.SaveChanges();

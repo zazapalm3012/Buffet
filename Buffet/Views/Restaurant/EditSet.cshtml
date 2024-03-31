@@ -1,0 +1,50 @@
+﻿@model Buffet.Models.Tableset
+
+@{
+    ViewData["Title"] = "EditSet";
+}
+
+<h1>EditSet</h1>
+
+<h4>Tableset</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditSet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TablesetIds" class="control-label"></label>
+                <input asp-for="TablesetIds" class="form-control" />
+                <span asp-validation-for="TablesetIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ssize" class="control-label">จำนวนโต๊ะขนาด S</label>
+                <input asp-for="Ssize" class="form-control" />
+                <span asp-validation-for="Ssize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Msize" class="control-label">จำนวนโต๊ะขนาด M</label>
+                <input asp-for="Msize" class="form-control" />
+                <span asp-validation-for="Msize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lsize" class="control-label">จำนวนโต๊ะขนาด L</label>
+                <input asp-for="Lsize" class="form-control" />
+                <span asp-validation-for="Lsize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label">จำนวนรวมของโต๊ะในร้าน</label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

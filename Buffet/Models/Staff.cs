@@ -15,7 +15,7 @@ public partial class Staff
 
     public string StaffPhone { get; set; } = null!;
 
-    public string StaffImg { get; set; } = null!;
+    public string? StaffImg { get; set; }
 
     public string DutyId { get; set; } = null!;
 }
