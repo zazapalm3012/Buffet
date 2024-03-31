@@ -42,7 +42,8 @@
         }
         else
         {
-            <div class="display-3">Welcome Gay @HttpContextAccessor.HttpContext.Session.GetString("CusName")</div>
+            <div class="display-3">Welcome @HttpContextAccessor.HttpContext.Session.GetString("CusName")</div>
+            <h1 >Please go to <a asp-action="Index" asp-controller="Home">Home</a> to Booking Restaurants</h1>
         }
 </div>
 </div>

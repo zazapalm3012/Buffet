@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Hero Section Begin -->
+@foreach(var x in Model)
+{
+    <section class="hero-section set-bg" data-setbg="/imgres/@x.ResImg">
+        <div class="hero-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>@x.ResName</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    break;
+    <!-- Hero Section End -->
+}
+@foreach (var i in Model)
+{
+    <h1 class="text-center mt-5" pt-5 my-5>@i.ResName</h1>
+    <h4 class="text-center" pt-5 my-5>@i.ResDtl</h4>
+    break;
+}
+
+    <div class="text-center" pt-5 my-5>
+
+    <!-- Rooms Section Begin -->
+    <section class="room-section spad">
+        <div class="container">
+            @foreach (var item in Model){
+                <div class="rooms-page-item">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="">
+                                <div class="single-room-pic">
+                                    <img src="/img/Booking/rooms-4.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="room-text">
+                                <div class="room-title">
+                                    <h2>@item.CourseName</h2>
+                                    <div class="room-price">
+                                        <span>From</span>
+                                        <h2>@item.CoursePrice</h2>
+                                        <sub> /course</sub>
+                                    </div>
+                                </div>
+                                <div class="room-desc">
+                                    <p>
+                                        @item.CourseDtl
+                                    </p>
+                                </div>
+                                <a class="primary-btn" asp-action="Payment" asp-route-id="@item.CourseId">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            @{
+                //end
+            }
+        </div>
+    </section>
+        

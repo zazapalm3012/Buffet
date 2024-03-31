@@ -1,15 +1,20 @@
-﻿using Buffet.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Buffet.Models;
 using Buffet.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
+
 
 namespace Buffet.Controllers
 {
@@ -28,7 +33,40 @@ namespace Buffet.Controllers
             return View();
         }
 
-        public IActionResult Store(string id)
+        public IActionResult Payment(int id)
+        {
+            if (id == null)
+            {
+                TempData["ErrorMessage"] = "ระบุ ID";
+                return RedirectToAction("Index");
+            }
+            var obj = _db.Courses.Find(id);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
+            var ids = id.ToString();
+            HttpContext.Session.SetString("CourseId", ids);
+            var shop = from i in _db.Courses
+                       where i.ResId.Equals(id)
+                       join c in _db.Restaurants on i.ResId equals c.ResId into join_c
+                       from i_c in join_c
+
+                       select new Pdvm
+                       {
+                           CourseId = i.CourseId,
+                           CourseName = i.CourseName,
+                           CoursePrice = i.CoursePrice,
+                           CourseDtl = i.CourseDtl,
+                           CourseImg = i.CourseImg,
+                           CourseType = i.CourseType
+                       };
+
+            return View(shop);
+        }
+
+        public IActionResult Booking(string id)
         {
             if (id == null)
             {
@@ -54,12 +92,14 @@ namespace Buffet.Controllers
                            ResName = i_c.ResName,
                            ResPhone = i_c.ResPhone,
                            ResAvg = i_c.ResAvg,
+                           ResImg = i_c.ResImg,
                            ResLocation = i_c.ResLocation,
                            ResDtl = i_c.ResDtl,
                            CourseId = i.CourseId,
                            CourseName = i.CourseName,
                            CoursePrice = i.CoursePrice,
                            CourseDtl = i.CourseDtl,
+                           CourseImg = i.CourseImg,
                            CourseType = i.CourseType
                         };
                
@@ -105,11 +145,11 @@ namespace Buffet.Controllers
                       };
             // return View(rep);
             ViewData["Crs"] = new SelectList(_db.Courses, "CourseId", "CourseName");
-            return View();
+            return View(rep);
 
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Book(Book obj)
         {
@@ -137,7 +177,7 @@ namespace Buffet.Controllers
             _db.SaveChanges();
             return RedirectToAction("Total");
 
-        }
+        }*/
         public IActionResult Total()
         {
             var ids = HttpContext.Session.GetString("ResId");
@@ -180,45 +220,36 @@ namespace Buffet.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Total(Payment obj)
+        public IActionResult Payment(string method, string cardnumber, string exp,
+            string ccv,DateTime date,int people) 
         {
-            
-
-            /*string serializedBook = TempData["ReservedBook"] as string;
-            if (!string.IsNullOrEmpty(serializedBook))
-            {
-                Book reservedBook = JsonConvert.DeserializeObject<Book>(serializedBook);
-                if (reservedBook != null)
-                {
-                    _db.Books.Add(reservedBook);
-                    _db.SaveChanges();
-                }
-
-            }*/
-            return View();
-        }
-
-
-        public IActionResult Payment(string method, string Cardnum, string Exp, string ccv) 
-        {
-            string serializedBook = TempData["ReservedBook"] as string;
-            if (!string.IsNullOrEmpty(serializedBook))
-            {
-                Book reservedBook = JsonConvert.DeserializeObject<Book>(serializedBook);
-                if (reservedBook != null)
-                {
-                    _db.Books.Add(reservedBook);
-                    _db.SaveChanges();
-                }
-
-            }
+            var Ccusid = HttpContext.Session.GetString("CusId");
+            var coid = HttpContext.Session.GetString("CourseId");
+            var Course = Convert.ToInt32(coid);
+            var ids = HttpContext.Session.GetString("ResId");
+            var time = DateTime.Now;
+            //payment method
             var PayIdCount = (from pay in _db.Payments select pay).Count();
             var PayId = "P" + 00 + PayIdCount;
             var BookIdCount = (from bookid in _db.Books select bookid).Count();
             var BookId = "B" + 00 + PayIdCount;
-            Payment pays = new Payment() { PayId = PayId, CardId  = Cardnum , CardExpire = Exp, CcvNum  =ccv, PayType  = method, BookId = BookId };
+
+            Payment pays = new Payment() { PayId = PayId,CardId  = cardnumber, CardExpire = exp, CcvNum = ccv, PayType  = method, BookId = BookId };
+            Book Books = new Book()
+            {
+                BookId = BookId,
+                CusId = Ccusid,
+                ResId = ids,
+                CourseId = Course
+                , BookDate = date, BookStatus = "1", TableId ="1", BookSeat = people, SelectDate = time };
+
             _db.Payments.Add(pays);
             _db.SaveChanges();
+            _db.Books.Add(Books);
+            _db.SaveChanges();
+
+
+            //books
             return RedirectToAction("Index");
         }
 

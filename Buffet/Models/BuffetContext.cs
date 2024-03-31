@@ -92,6 +92,9 @@ public partial class BuffetContext : DbContext
             entity.Property(e => e.CourseDtl)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.CourseImg)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.CourseName)
                 .HasMaxLength(255)
                 .IsUnicode(false);

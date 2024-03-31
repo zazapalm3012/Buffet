@@ -7,12 +7,14 @@ namespace Buffet.ViewModels
         public string ResId { get; set; } = null!;
 
         public string ResName { get; set; } = null!;
+        public string ResImg { get; set; } = null!;
 
         public string ResPhone { get; set; } = null!;
 
         public string ResLocation { get; set; } = null!;
 
         public string ResAvg { get; set; } = null!;
+        public string? CourseImg { get; set; }
 
         public string TypeId { get; set; } = null!;
         public string TypeName { get; set; } = null!;
@@ -29,7 +31,6 @@ namespace Buffet.ViewModels
         public int Lsize { get; set; }
 
         public int CourseId { get; set; }
-
 
         public string CourseName { get; set; } = null!;
 

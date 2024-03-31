@@ -115,60 +115,18 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="carousel-inner menu-inner">
+                                        @foreach (var i in Model)
+                                        {
                                         <div class="carousel-item active menu-item">
                                             <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-1.jpg" class="d-block w-100" alt="..."> </div>
+                                                    <div class="img-wrapper"><a asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId"> <img src="/menu/menu-1.jpg" class="d-block w-100"></a> </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Card title 1</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
+                                                        <h5 class="card-title"><a class="text-decoration-none" asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId">@i.ResName</a></h5>
+                                                    <p class="card-text">@i.ResDtl</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="carousel-item menu-item">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-2.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 2</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item menu-item">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-3.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 3</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item menu-item">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-4.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 4</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item menu-item">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-5.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 5</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item menu-item">
-                                            <div class="card">
-                                                <div class="img-wrapper"><img src="/menu/menu-3.jpg" class="d-block w-100" alt="..."> </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title 6</h5>
-                                                    <p class="card-text">"Some dummy text you don't need to read. Since you have decided to read, do like, share, comment and subscribe to Coding Yaar."</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,8 @@
-﻿<head>
-    <link rel="stylesheet" href="~/css/payment.css">
-</head>
+﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
 
+
+
+<form asp-action="Payment">
 <div class="container d-flex justify-content-center mt-5 mb-5 pt-5">
     <div class="row g-3">
         <div class="col-md-6">
@@ -23,55 +24,51 @@
                                     <div class="d-flex align-items-center justify-content-between">
 
                                         <span>Credit card</span>
-                                        <div class="icons">
-                                            <img src="https://i.imgur.com/2ISgYja.png" width="30">
-                                            <img src="https://i.imgur.com/W1vtnOV.png" width="30">
-                                            <img src="https://i.imgur.com/35tC99g.png" width="30">
-                                            <img src="https://i.imgur.com/2ISgYja.png" width="30">
+                                        <div>
+                                                <select class="form-select" name="method" id="method">
+                                                    <option value="Visa">Visa</option>
+                                                    <option value="Mastercard">Mastercard</option>
+                                                </select>
+
                                         </div>
                                     </div>
                                 </div>
                             </h2>
                         </div>
+
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body payment-card-body">
                                 <span class="font-weight-normal card-text">Card Number</span>
                                 <div class="input">
                                     <i class="fa fa-credit-card"></i>
-                                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                                    <input name = "cardnumber"type="text" class="form-control" placeholder="0000 0000 0000 0000" maxlength="16">
                                 </div>
                                 <div class="row mt-2 mb-3">
                                     <div class="col-md-6">
                                         <span class="font-weight-normal card-text">Expiry Date</span>
                                         <div class="input">
                                             <i class="fa fa-calendar"></i>
-                                            <input type="text" class="form-control" placeholder="MM/YY">
+                                            <input name="exp" type="text" class="form-control" placeholder="MM/YY" maxlength="5">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <span class="font-weight-normal card-text">CVC/CVV</span>
                                         <div class="input">
                                             <i class="fa fa-lock"></i>
-                                            <input type="text" class="form-control" placeholder="000">
+                                            <input name="ccv" type="text" class="form-control" placeholder="000" maxlength="3">
                                         </div>
                                     </div>
                                 </div>
 
                                 <span class="font-weight-normal card-text">Date</span>
                                 <div class="input">
-                                    <i class="fa fa-credit-card"></i>
-                                    <input type="text" class="form-control" placeholder="DD/MM/YYYY">
-                                </div>
-
-                                <span class="font-weight-normal card-text">Time</span>
-                                <div class="input">
-                                    <i class="fa fa-credit-card"></i>
-                                    <input type="text" class="form-control" placeholder="Hour/Min - Hour/Min">
+                                    <i class="bi bi-calendar"></i>  
+                                    <input name="date" type="datetime-local" class="form-control" placeholder="DD/MM/YYYY" maxlength="16">
                                 </div>
                                 <span class="font-weight-normal card-text">จำนวนคน</span>
                                 <div class="input">
-                                    <i class="fa fa-credit-card"></i>
-                                    <input type="number" class="form-control" placeholder="1-99">
+                                    <i class="bi bi-person-fill"></i>
+                                        <input name="people" id="input" type="text" class="form-control" placeholder="1-99" oninput="calculate()" >
                                 </div>
 
 
@@ -108,33 +105,37 @@
 
                     <div class="d-flex flex-column">
 
-                        <span>ยอดรวม <i class="fa fa-caret-down"></i></span>
+                        <span>ยอดรวม </i></span>
 
                     </div>
 
                     <div class="mt-1">
-                        <sup class="super-price">$9.99</sup>
+                        <sup class="super-price" id="result"></sup>
                     </div>
 
                 </div>
 
                 <hr class="mt-0 line">
 
-
-
-
-
-                <div class="p-3 text-center">
-
-                    <button class="btn btn-primary btn-block free-button custom-button">Submit</button>
-                    <div class="text-center px-5 mx-5">
-                        <a href="#">เงื่อนไขและข้อตกลง</a>
-                    </div>
-
-
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-block free-button custom-button">Submit</button>
                 </div>
-
+           
+                <div class="text-center px-5 mx-5">
+                    <a href="#">เงื่อนไขและข้อตกลง</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+</form>
+@section Scripts {
+<script>
+    function calculate() {
+        let input = document.getElementById('input').value;
+        let number = parseFloat(input);
+        let result = number * 1;
+        document.getElementById('result').innerHTML = result;
+    }
+</script>
+}
