@@ -7,10 +7,13 @@
         public string CusId { get; set; } = null!;
 
         public string ResId { get; set; } = null!;
+        public string ResName { get; set; } = null!;
+        public int TotalBookings { get; set; }
 
         public int CourseId { get; set; }
 
         public DateTime BookDate { get; set; }
+        public double CoursePrice { get; set; }
 
         public string BookStatus { get; set; } = null!;
 

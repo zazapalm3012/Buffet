@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditRestaurant">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ResId" />
             <div class="form-group">
@@ -51,21 +51,18 @@
                 <span asp-validation-for="TablesetIds" class="text-danger"></span>
             </div>
             
-            <div class="form-group">
-                <label asp-for="TableId" class="control-label"></label>
-                <input asp-for="TableId" class="form-control" />
-                <span asp-validation-for="TableId" class="text-danger"></span>
-            </div>
+        
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-<div class="col-5">
+<div class="col-4">
     <form method="post" enctype="multipart/form-data" asp-action="ResImgUpload">
         <input name="id" type="hidden" value="@Model.ResId" />
         <input type="file" accept="image/jpeg" name="imgfiles" class="form-control" required />
+        <br />
         <button type="submit" class="btn btn-success">Upload</button>
     </form>
 </div>

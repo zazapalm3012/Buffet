@@ -63,7 +63,7 @@ namespace Buffet.Controllers
                 HttpContext.Session.SetString("DutyId", DutyId);
             }
             //ทำการย้ายไปหน้าที่ต้องการ
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Restaurant");
         }
 
 

@@ -1,6 +1,16 @@
 ﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
-
-
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+    var CusId = HttpContextAccessor.HttpContext.Session.GetString("CusId");
+    var CusName = HttpContextAccessor.HttpContext.Session.GetString("CusName");
+    var CartId = HttpContextAccessor.HttpContext.Session.GetString("CartId");
+    var resid = HttpContextAccessor.HttpContext.Session.GetString("ResId");
+    var CartMoney = HttpContextAccessor.HttpContext.Session.GetString("CartMoney");
+    var Courseid = HttpContextAccessor.HttpContext.Session.GetString("CourseId");
+    var CartQty = HttpContextAccessor.HttpContext.Session.GetString("CartQty");
+    var StfId = HttpContextAccessor.HttpContext.Session.GetString("StfId");
+}
 
 <form asp-action="Payment">
 <div class="container d-flex justify-content-center mt-5 mb-5 pt-5">
@@ -12,7 +22,11 @@
                         <div class="card-header p-0" id="headingTwo">
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
+                                <div class="card-body">
+                                    <input name="Resid" type="text" class="form-control" placeholder="Paypal email" value="resid">
+                                    <input name="cusid" type="text" class="form-control" placeholder="Paypal email" value="CusId">
+                                    <input name="CourseId" type="text" class="form-control" placeholder="Paypal email" value="Courseid">
+
                                 <input type="text" class="form-control" placeholder="Paypal email">
                             </div>
                         </div>

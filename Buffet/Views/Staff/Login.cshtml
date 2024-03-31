@@ -8,7 +8,7 @@
 <div class="pt-5 mt-5"></div>
 <div class="container justify-content-center align -items-center">
     <div class="text-center">
-        <div class="display-4">KuShop</div>
+        
         @if (TempData["ErrorMessage"] != null)
         {
             <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
@@ -49,7 +49,7 @@
         }
         else
         {
-            <div class="display-3">Welcome Gay @HttpContextAccessor.HttpContext.Session.GetString("CusName")</div>
+            <div class="display-3">Welcome @HttpContextAccessor.HttpContext.Session.GetString("CusName")</div>
         }
     </div>
 </div>

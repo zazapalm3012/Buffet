@@ -4,6 +4,9 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    var stext = ViewBag.theText;
+}
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,16 +64,14 @@
         <div class="container">
             @* search *@
             <div class="container mt-5 mb-5 w-50">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search ....."></input>
-                    <button class="btn btn-outline-info" type="button">Search</button>
+                <form asp-action="Search" class="d-flex">
+                    <input name ="search"class="form-control me-2" type="search" placeholder="Search ....." value="@stext" >
+                    <button type="submit" class="btn btn-outline-info" >Search</button>
                 </form>
             </div>
 
-
-
-
-@* 
+            
+                @* 
             <div class="d-flex justify-content-center h-100">
                 <button type="button" class="btn btn-primary">
                     <i class="bi bi-geo-alt"></i>
@@ -117,9 +118,9 @@
                                     <div class="carousel-inner menu-inner">
                                         @foreach (var i in Model)
                                         {
-                                        <div class="carousel-item active menu-item">
-                                            <div class="card">
-                                                    <div class="img-wrapper"><a asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId"> <img src="/menu/menu-1.jpg" class="d-block w-100"></a> </div>
+                                        <div class="carousel-item active menu-item">    
+                                            <div class="card " >
+                                                    <div class="img-wrapper"><a asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId"> <img src="/imgres/@i.ResImg" class="d-block w-100"></a> </div>
                                                 <div class="card-body">
                                                         <h5 class="card-title"><a class="text-decoration-none" asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId">@i.ResName</a></h5>
                                                     <p class="card-text">@i.ResDtl</p>
@@ -225,8 +226,12 @@
 
             @* ================================================================================================================================== *@
             <div class="mb-5"></div>
+          
+
         </div>
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/js/Booking/jquery-3.3.1.min.js"></script>

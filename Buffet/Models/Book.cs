@@ -17,8 +17,6 @@ public partial class Book
 
     public string BookStatus { get; set; } = null!;
 
-    public string TableId { get; set; } = null!;
-
     public int BookSeat { get; set; }
 
     public DateTime SelectDate { get; set; }

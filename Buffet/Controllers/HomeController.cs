@@ -18,6 +18,32 @@ namespace Buffet.Controllers
             _db = db;
         }
 
+        public IActionResult Search(string search)
+        {
+            var pdvm = (from p in _db.Restaurants
+                        join pt in _db.Courses on p.ResId equals pt.ResId into join_p_pt
+                        from p_pt in join_p_pt
+                        where p.ResName.Contains(search) || p_pt.CourseName.Contains(search) || p_pt.CourseType.Contains(search)
+                        select new Pdvm
+                        {
+                            ResId = p.ResId,
+                            ResName = p.ResName,
+                            ResPhone = p.ResPhone,
+                            ResImg = p.ResImg,
+                            ResAvg = p.ResAvg,
+                            ResLocation = p.ResLocation,
+                            ResDtl = p.ResDtl,
+                            CourseId = p_pt.CourseId,
+                            CourseName = p_pt.CourseName,
+                            CoursePrice = p_pt.CoursePrice,
+                            CourseDtl = p_pt.CourseDtl,
+                            CourseImg = p_pt.CourseImg,
+                            CourseType = p_pt.CourseType
+                        }).GroupBy(x => new { x.ResId, x.CourseId,x.ResName,x.CourseType }).Select(g => g.First()); // ใช้ GroupBy เพื่อแบ่งข้อมูลออกเป็นกลุ่มและเลือกข้อมูลแต่ละกลุ่ม
+            if (pdvm == null) return NotFound();
+            ViewData["Search"] = search;
+            return View(pdvm);
+        }
         public IActionResult Index()
         {
             var shop = from i in _db.Restaurants
@@ -27,10 +53,10 @@ namespace Buffet.Controllers
                            ResId = i.ResId,
                            ResName = i.ResName,
                            ResPhone = i.ResPhone,
+                           ResImg = i.ResImg,
                            ResAvg = i.ResAvg,
                            ResLocation = i.ResLocation,
                            ResDtl = i.ResDtl
-
                        };
             if (shop == null) return NotFound();
             ViewBag.ErrorMessage = TempData["ErrorMessage"];

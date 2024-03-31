@@ -79,9 +79,6 @@ public partial class BuffetContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.SelectDate).HasColumnType("datetime");
-            entity.Property(e => e.TableId)
-                .HasMaxLength(255)
-                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Course>(entity =>

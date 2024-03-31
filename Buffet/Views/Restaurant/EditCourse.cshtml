@@ -1,0 +1,52 @@
+﻿﻿
+@model Buffet.Models.Course
+
+@{
+    ViewData["Title"] = "EditCourse";
+}
+
+<h1>EditCourse</h1>
+
+<h4>Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditCourse">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CourseId" />
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label">ชื่อคอร์ส</label>
+                <input asp-for="CourseName" class="form-control" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoursePrice" class="control-label">ราคาคอร์ส</label>
+                <input asp-for="CoursePrice" class="form-control" />
+                <span asp-validation-for="CoursePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseType" class="control-label">ประเภทคอร์ส</label>
+                <input asp-for="CourseType" class="form-control" />
+                <span asp-validation-for="CourseType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseDtl" class="control-label">รายละเอียดคอร์ส</label>
+                <input asp-for="CourseDtl" class="form-control" />
+                <span asp-validation-for="CourseDtl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-5">
+    <form method="post" enctype="multipart/form-data" asp-action="CourseImgUpload">
+        <input name="id" type="hidden" value="@Model.CourseId" />
+        <input type="file" accept="image/jpeg" name="imgfiles" class="form-control" required />
+        <button type="submit" class="btn btn-success">Upload</button>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

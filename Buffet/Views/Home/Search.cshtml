@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Buffet.ViewModels.Pdvm>
+
+@{
+    ViewData["Title"] = "Search Page";
+}
+
+@{
+    var stext = ViewBag.Search;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Taviraj:300,400,500,600,700,800,900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/css/Booking/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/Booking/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/Home-Index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <div class="">
+        <div class="mt-3 pt-5"></div>
+        <div class="slideshow-container">
+            <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active c-item fade-c-item">
+                        <img src="/Icon/HomePage.jpg" class="d-block w-100 c-img" alt="...">
+                    </div>
+                    <div class="carousel-item c-item fade-c-item">
+                        <img src="/Icon/background.png" class="d-block w-100 c-img" alt="...">
+                    </div>
+                    <div class="carousel-item c-item fade-c-item">
+                        <img src="/Icon/background2.png" class="d-block w-100 c-img" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            @* search *@
+            <div class="container mt-5 mb-5 w-50">
+                <form asp-action="Search" class="d-flex">
+                    <input name="search" class="form-control me-2" type="search" placeholder="Search ....." value="@stext">
+                    <button type="submit" class="btn btn-outline-info">Search</button>
+                </form>
+            </div>
+
+
+           
+
+            @* recomend *@
+            <div class="container mx-5 mt-3">
+            </div>
+            @* card1 *@
+            <section>
+                <div class="testimonial-slider menu-slider">
+                    <div id="recomend" class="carousel carousel-dark" data-bs-ride="carousel">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="testimonial-title menu-title">
+                                        <i class="bi bi-quote display-2"></i>
+                                        <h2 class="fw-bold display-6 text-black">"Menu Recomend"</h2>
+                                    </div>
+                                    <button class="carousel-control-prev prev-icon" type="button" data-bs-target="#recomend" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next next-icon" type="button" data-bs-target="#recomend" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="carousel-inner menu-inner">
+                                        @foreach (var i in Model)
+                                        {
+                                            <div class="carousel-item active menu-item">
+                                                <div class="card ">
+                                                    <div class="img-wrapper"><a asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId"> <img src="/imgres/@i.ResImg" class="d-block w-100"></a> </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><a class="text-decoration-none" asp-controller="Reserve" asp-action="Booking" asp-route-id="@i.ResId">@i.ResName</a></h5>
+                                                        <p class="card-text">@i.ResDtl</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+           
+            <div class="mb-5"></div>
+
+
+        </div>
+    </div>
+        
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/js/Booking/jquery-3.3.1.min.js"></script>
+    <script src="/js/Booking/main.js"></script>
+    <script src="/js/site.js"></script>
+</body>
+</html>

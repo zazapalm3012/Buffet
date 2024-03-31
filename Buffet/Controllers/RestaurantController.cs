@@ -38,6 +38,174 @@ namespace Buffet.Controllers
             //ถ้าพบ ส่ง Obj pd ที่ได้ให้ View ไปแสดง
             return View(pdvm);
         }
+        public IActionResult EditCourse(int id)
+        {
+            if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                TempData["ErrorMessage"] = "ระบุ ID";
+                return RedirectToAction("Index");
+            }
+            var obj = _db.Courses.Find(id);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCourse(Course obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.Courses.Update(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "ฐานข้อมูลไม่พร้อมทำงาน";
+                    return View(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View(obj);
+            }
+
+        }
+
+        public IActionResult EditSet(int id)
+        {
+            if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                TempData["ErrorMessage"] = "ระบุ ID";
+                return RedirectToAction("Index");
+            }
+            var obj = _db.Tablesets.Find(id);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditSet(Tableset obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.Tablesets.Update(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "ฐานข้อมูลไม่พร้อมทำงาน";
+                    return View(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View(obj);
+            }
+
+        }
+
+        public IActionResult EditResType(string id)
+        {
+            if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
+            {
+                TempData["ErrorMessage"] = "ไม่มีสิทธิใช้งาน";
+                return RedirectToAction("Index", "Home");
+            }
+            if (id == null)
+            {
+                TempData["ErrorMessage"] = "ระบุ ID";
+                return RedirectToAction("Index");
+            }
+            var obj = _db.RestaurantsTypes.Find(id);
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "ไม่พบ ID";
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditResType(RestaurantsType obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.RestaurantsTypes.Update(obj);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "ฐานข้อมูลไม่พร้อมทำงาน";
+                    return View(obj);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View(obj);
+            }
+
+        }
+        public IActionResult CourseImgUpload(IFormFile imgfiles, int id)
+        {
+            var FileName = id;
+            var FileExtension = Path.GetExtension(imgfiles.FileName);
+            var SaveFilename = FileName + FileExtension;
+            var SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\imgcourse");
+            var SaveFilePath = Path.Combine(SavePath, SaveFilename);
+            using (FileStream fs = System.IO.File.Create(SaveFilePath))
+            {
+                imgfiles.CopyTo(fs);
+                fs.Flush();
+            }
+
+            var obj = _db.Courses.Find(id);
+            if (obj != null)
+            {
+                obj.CourseImg = SaveFilename;
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Staff");
+
+        }
 
         public IActionResult Create()
         {
@@ -159,7 +327,7 @@ namespace Buffet.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(string id)
+        public IActionResult EditRestaurant(string id)
         {
             if (HttpContext.Session.GetString("DutyId") != "staff" && HttpContext.Session.GetString("DutyId") != "admin")
             {
@@ -188,7 +356,7 @@ namespace Buffet.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Restaurant obj)
+        public IActionResult EditRestaurant(Restaurant obj)
         {
             try
             {

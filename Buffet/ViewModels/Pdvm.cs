@@ -7,7 +7,7 @@ namespace Buffet.ViewModels
         public string ResId { get; set; } = null!;
 
         public string ResName { get; set; } = null!;
-        public string ResImg { get; set; } = null!;
+        public string? ResImg { get; set; }
 
         public string ResPhone { get; set; } = null!;
 

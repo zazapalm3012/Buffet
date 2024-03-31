@@ -34,27 +34,42 @@
         </div>
     </div>
 </form>
-<table class="table table-borderless table-hover">
-    <tr>
-        <th></th>
-        <th colspan="2">สินค้า</th>
-        <th class="text-end">จำนวนสินค้า</th>
-        <th class="text-center">ยอดเงิน</th>
-    </tr>
-    @{
-        var i = 0;
-    }
-    @foreach (var item in Model)
-    {
-        i++;
-        <tr>
-            <td>@i</td>
-            <td>@item.ResId</td>
-            <td>@item.SelectDate</td>
+<div class="">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" colspan="1" class="text-center">รหัสร้าน</th>
+                <th scope="col" class="text-center">ชื่อร้าน</th>
+                <th scope="col" class="text-center">ยอดการจอง</th>
+                <th scope="col" class="text-center">ยอดเงินทั้งหมด</th>
 
-        </tr>
-    }
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var i = 0;
+            }
+            @foreach (var item in Model)
+            {
+                var sum = @item.TotalBookings * @item.CoursePrice;
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td class="text-center">@item.ResId</td>
+                    <td class="text-center">@item.ResName</td>
+                    <td class="text-center">@item.TotalBookings</td>
+
+                    <td class="text-center">@sum</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    
+
+
+
 <!--กำหนดพื้นที่ Script -->
 @section Scripts {
     <script>

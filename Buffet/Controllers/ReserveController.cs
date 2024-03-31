@@ -68,6 +68,10 @@ namespace Buffet.Controllers
 
         public IActionResult Booking(string id)
         {
+            if(HttpContext.Session.GetString("CusId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 TempData["ErrorMessage"] = "ระบุ ID";
@@ -106,7 +110,7 @@ namespace Buffet.Controllers
                 return View(shop);
         }
 
-        public IActionResult Book(string id)
+       /* public IActionResult Book(string id)
         {
             if (id == null)
             {
@@ -147,7 +151,7 @@ namespace Buffet.Controllers
             ViewData["Crs"] = new SelectList(_db.Courses, "CourseId", "CourseName");
             return View(rep);
 
-        }
+        }*/
 
         /*[HttpPost]
         [ValidateAntiForgeryToken]
@@ -220,8 +224,7 @@ namespace Buffet.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Payment(string method, string cardnumber, string exp,
-            string ccv,DateTime date,int people) 
+        public IActionResult Payment(string method, string cardnumber, string exp,string ccv,DateTime date,int people) 
         {
             var Ccusid = HttpContext.Session.GetString("CusId");
             var coid = HttpContext.Session.GetString("CourseId");
@@ -233,7 +236,7 @@ namespace Buffet.Controllers
             var PayId = "P" + 00 + PayIdCount;
             var BookIdCount = (from bookid in _db.Books select bookid).Count();
             var BookId = "B" + 00 + PayIdCount;
-
+            
             Payment pays = new Payment() { PayId = PayId,CardId  = cardnumber, CardExpire = exp, CcvNum = ccv, PayType  = method, BookId = BookId };
             Book Books = new Book()
             {
@@ -241,10 +244,10 @@ namespace Buffet.Controllers
                 CusId = Ccusid,
                 ResId = ids,
                 CourseId = Course
-                , BookDate = date, BookStatus = "1", TableId ="1", BookSeat = people, SelectDate = time };
+                , BookDate = date, BookStatus = "1",  BookSeat = people, SelectDate = time };
 
             _db.Payments.Add(pays);
-            _db.SaveChanges();
+     
             _db.Books.Add(Books);
             _db.SaveChanges();
 
