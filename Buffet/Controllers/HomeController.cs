@@ -111,7 +111,7 @@ namespace Buffet.Controllers
 
             if (cus.ToList().Count() == 0)
             {
-                TempData["ErrorMessage"] = "I Show Gay";
+                TempData["ErrorMessage"] = "ไม่พบข้อมูล";
                 return RedirectToAction("Login");
             }
 
