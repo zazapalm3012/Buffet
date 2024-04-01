@@ -253,7 +253,7 @@ namespace Buffet.Controllers
 
 
             //books
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult Nothing()

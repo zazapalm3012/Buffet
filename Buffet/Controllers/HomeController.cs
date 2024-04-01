@@ -79,14 +79,11 @@ namespace Buffet.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
                     var cusIdCount = (from id in _db.Customers select id).Count();
                     obj.CusId = "C" + 00 + cusIdCount;
                     _db.Customers.Add(obj);
                     _db.SaveChanges();
                     return RedirectToAction("Index");
-                }
             }
             catch (Exception ex)
             {
@@ -96,6 +93,7 @@ namespace Buffet.Controllers
             ViewBag.ErrorMessage = "การบันทึกผิดพลาด";
             return RedirectToAction("Index");
         }
+
         public IActionResult Login()
         {
             return View();
@@ -106,7 +104,7 @@ namespace Buffet.Controllers
         public IActionResult Login(string userName, string userPass)
         {
             var cus = from c in _db.Customers
-                      where c.CusPhone.Equals(userName) && c.CusPass.Equals(userPass)
+                      where c.CusEmail.Equals(userName) && c.CusPass.Equals(userPass)
                       select c;
 
             if (cus.ToList().Count() == 0)

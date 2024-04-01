@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Buffet.Models;
 
 public partial class Customer
 {
+    [Key]
     public string CusId { get; set; } = null!;
 
     public string CusName { get; set; } = null!;
