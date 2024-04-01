@@ -56,7 +56,7 @@ namespace Buffet.Controllers
                 TempData["ErrorMessage"] = "ไม่พบ ID";
                 return RedirectToAction("Index");
             }
-
+            ViewData["Res"] = new SelectList(_db.Restaurants, "ResId", "ResName");
             return View(obj);
         }
 
@@ -75,7 +75,7 @@ namespace Buffet.Controllers
                 else
                 {
                     ViewBag.ErrorMessage = "ฐานข้อมูลไม่พร้อมทำงาน";
-                    return View(obj);
+                    return NotFound();
                 }
 
             }

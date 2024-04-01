@@ -82,7 +82,9 @@
                                 <span class="font-weight-normal card-text">จำนวนคน</span>
                                 <div class="input">
                                     <i class="bi bi-person-fill"></i>
-                                        <input name="people" id="input" type="text" class="form-control" placeholder="1-99" oninput="calculate()" >
+                                      
+                                            <input name="people" id="input" type="text" class="form-control" placeholder="1-99" oninput="calculate()" >
+                                        
                                 </div>
 
 
@@ -144,12 +146,15 @@
 </div>
 </form>
 @section Scripts {
-<script>
-    function calculate() {
-        let input = document.getElementById('input').value;
-        let number = parseFloat(input);
-        let result = number * 1;
-        document.getElementById('result').innerHTML = result;
+    @foreach(var i in Model){
+        <script>
+            function calculate() {
+                let input = document.getElementById('input').value;
+                let number = parseFloat(input);
+                let result = number * @i.CoursePrice;
+                document.getElementById('result').innerHTML = result;
+            }
+        </script>
     }
-</script>
+
 }
